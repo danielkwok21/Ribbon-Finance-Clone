@@ -38,114 +38,153 @@ export default function Dashboard() {
             <div
                 style={{
                     display: 'flex',
-                    justifyContent: 'flex-start',
+                    justifyContent: 'center',
                     flexDirection: 'column',
+                    alignItems: 'center',
                     width: '70%'
                 }}
             >
-                <Typography variant='h6' color="text.primary" gutterBottom>
-                    PORTFOLIO SUMMARY
-                </Typography>
-                <Card
-                    raised={true}
-                    sx={{ width: '100%' }}
+
+                <div
                     style={{
-                        backgroundColor: 'black'
+                        marginTop: 50,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start',
+                        alignItems: 'flex-start',
+                        width: '100%'
                     }}
                 >
-                    <CardContent style={{ position: 'relative' }}>
-                        <div
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'flex-end'
-                            }}
-                        >
-                            <div>
-                                <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                                    Balances
-                                </Typography>
-                                <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                                    _ _ _
-                                </Typography>
+                    <Typography variant='h6' color="text.primary" gutterBottom>
+                        PORTFOLIO SUMMARY
+                    </Typography>
+                    <Card
+                        raised={true}
+                        sx={{ width: '100%', maxWidth: 1000 }}
+                        style={{
+                            backgroundColor: 'black'
+                        }}
+                    >
+                        <CardContent style={{ position: 'relative' }}>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'flex-end'
+                                }}
+                            >
+                                <div>
+                                    <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+                                        Balances
+                                    </Typography>
+                                    <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                                        _ _ _
+                                    </Typography>
 
+                                </div>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        gap: 15
+                                    }}
+                                >
+                                    <a
+                                        onClick={() => {
+                                            const searchParams = new URLSearchParams(window.location.search)
+                                            searchParams.set('range', '1w')
+
+                                            navigate(`?${searchParams.toString()}`)
+                                        }}
+                                    >
+                                        <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+                                            1W
+                                        </Typography>
+                                    </a>
+                                    <a
+                                        onClick={() => {
+                                            const searchParams = new URLSearchParams(window.location.search)
+                                            searchParams.set('range', '1m')
+
+                                            navigate(`?${searchParams.toString()}`)
+                                        }} >
+                                        <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+                                            1M
+                                        </Typography>
+                                    </a>
+                                    <a
+                                        onClick={() => {
+                                            const searchParams = new URLSearchParams(window.location.search)
+                                            searchParams.set('range', 'all')
+
+                                            navigate(`?${searchParams.toString()}`)
+                                        }}>
+                                        <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+                                            ALL
+                                        </Typography>
+                                    </a>
+                                </div>
+                            </div>
+                            <br />
+                            <div
+                                style={{
+                                    height: 200,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center'
+                                }}
+                            >
+                                <a >
+                                    <Typography variant="subtitle1" id='connect-wallet-link'>
+                                        Connect your wallet
+                                    </Typography>
+                                </a>
                             </div>
                             <div
                                 style={{
                                     display: 'flex',
-                                    gap: 15
+                                    width: '100%',
+                                    justifyContent: 'space-around',
                                 }}
                             >
-                                <a >
-                                    <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                                        1W
+                                <div>
+                                    <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                                        Yield Earned
                                     </Typography>
-                                </a>
-                                <a >
-                                    <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                                        1M
+                                    <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                                        _ _ _
                                     </Typography>
-                                </a>
-                                <a >
-                                    <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-                                        ALL
+                                </div>
+                                <div>
+                                    <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                                        ROI
                                     </Typography>
-                                </a>
+                                    <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                                        _ _ _
+                                    </Typography>
+                                </div>
+                                <div>
+                                    <Typography sx={{ fontSize: 12 }} color="crimson">
+                                        $RBN Balance
+                                    </Typography>
+                                    <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                                        _ _ _
+                                    </Typography>
+                                </div>
                             </div>
-                        </div>
-                        <br />
-                        <div
-                            style={{
-                                height: 200,
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}
-                        >
-                            <a >
-                                <Typography variant="subtitle1" id='connect-wallet-link'>
-                                    Connect your wallet
-                                </Typography>
-                            </a>
-                        </div>
-                        <div
-                            style={{
-                                display: 'flex',
-                                width: '100%',
-                                justifyContent: 'space-around',
-                            }}
-                        >
-                            <div>
-                                <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                                    Yield Earned
-                                </Typography>
-                                <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                                    _ _ _
-                                </Typography>
-                            </div>
-                            <div>
-                                <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                                    ROI
-                                </Typography>
-                                <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                                    _ _ _
-                                </Typography>
-                            </div>
-                            <div>
-                                <Typography sx={{ fontSize: 12 }} color="crimson">
-                                    $RBN Balance
-                                </Typography>
-                                <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                                    _ _ _
-                                </Typography>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
+                        </CardContent>
+                    </Card>
 
+                </div>
 
                 <div
-                    style={{ marginTop: 50 }}
+                    style={{
+                        marginTop: 50,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start',
+                        alignItems: 'flex-start',
+                        width: '100%'
+                    }}
                 >
                     <Typography variant='h6' color="text.primary" gutterBottom>
                         POSITIONS
@@ -158,63 +197,74 @@ export default function Dashboard() {
                 </div>
 
                 <div
-                    style={{ marginTop: 50 }}
+                    style={{
+                        marginTop: 50,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start',
+                        alignItems: 'flex-start',
+                        width: '100%'
+                    }}
                 >
                     <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'row'
-                        }}
+                        style={{ marginTop: 50 }}
                     >
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'row'
+                            }}
+                        >
 
-                        <Typography variant='h6' color="text.primary" gutterBottom>
-                            TRANSACTION HISTORY
+                            <Typography variant='h6' color="text.primary" gutterBottom>
+                                TRANSACTION HISTORY
+                            </Typography>
+
+                            <FormControl style={{ width: 200, marginLeft: 10 }} size='small'>
+                                <InputLabel id="strategy-label">ALL ACTIVITY</InputLabel>
+                                <Select
+                                    style={{ maxWidth: 200 }}
+                                    labelId="strategy-label"
+                                    value=''
+                                    onChange={e => {
+                                        const strategy: string = typeof e.target.value === 'string' ? e.target.value : ''
+                                        const searchParams = new URLSearchParams(window.location.search)
+                                        searchParams.set('strategy', strategy)
+
+                                        navigate(`?${searchParams.toString()}`)
+                                    }}
+                                >
+                                    <MenuItem value={'COVERED-CALL'}>COVERED-CALL</MenuItem>
+                                    <MenuItem value={'PUT-SELLING'}>PUT-SELLING</MenuItem>
+                                </Select>
+                            </FormControl>
+
+                            <FormControl style={{ width: 200, marginLeft: 10 }} size='small'>
+                                <InputLabel id="deposit-asset-label">LATEST FIRST</InputLabel>
+                                <Select
+                                    style={{ maxWidth: 200 }}
+                                    labelId="deposit-asset-label"
+                                    value=''
+                                    onChange={e => {
+                                        const strategy: string = typeof e.target.value === 'string' ? e.target.value : ''
+                                        const searchParams = new URLSearchParams(window.location.search)
+                                        searchParams.set('deposit_asset', strategy)
+
+                                        navigate(`?${searchParams.toString()}`)
+                                    }}
+                                >
+                                    <MenuItem value={'AAVE'}>AAVE</MenuItem>
+                                    <MenuItem value={'ETH'}>ETH</MenuItem>
+                                    <MenuItem value={'USDC'}>USDC</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </div>
+
+                        <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                            _ _ _
                         </Typography>
 
-                        <FormControl style={{ width: 200, marginLeft: 10 }} size='small'>
-                            <InputLabel id="strategy-label">ALL ACTIVITY</InputLabel>
-                            <Select
-                                style={{ maxWidth: 200 }}
-                                labelId="strategy-label"
-                                value=''
-                                onChange={e => {
-                                    const strategy: string = typeof e.target.value === 'string' ? e.target.value : ''
-                                    const searchParams = new URLSearchParams(window.location.search)
-                                    searchParams.set('strategy', strategy)
-
-                                    navigate(`?${searchParams.toString()}`)
-                                }}
-                            >
-                                <MenuItem value={'COVERED-CALL'}>COVERED-CALL</MenuItem>
-                                <MenuItem value={'PUT-SELLING'}>PUT-SELLING</MenuItem>
-                            </Select>
-                        </FormControl>
-
-                        <FormControl style={{ width: 200, marginLeft: 10 }} size='small'>
-                            <InputLabel id="deposit-asset-label">LATEST FIRST</InputLabel>
-                            <Select
-                                style={{ maxWidth: 200 }}
-                                labelId="deposit-asset-label"
-                                value=''
-                                onChange={e => {
-                                    const strategy: string = typeof e.target.value === 'string' ? e.target.value : ''
-                                    const searchParams = new URLSearchParams(window.location.search)
-                                    searchParams.set('deposit_asset', strategy)
-
-                                    navigate(`?${searchParams.toString()}`)
-                                }}
-                            >
-                                <MenuItem value={'AAVE'}>AAVE</MenuItem>
-                                <MenuItem value={'ETH'}>ETH</MenuItem>
-                                <MenuItem value={'USDC'}>USDC</MenuItem>
-                            </Select>
-                        </FormControl>
                     </div>
-
-                    <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                        _ _ _
-                    </Typography>
-
                 </div>
             </div>
         </div >
