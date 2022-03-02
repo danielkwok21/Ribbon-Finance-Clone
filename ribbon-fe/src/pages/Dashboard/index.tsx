@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { GetProductDetailDTO, GetProductsDTO } from '../../dto'
+import { GetProductDetailDTO, GetProductsDTO, ProductDTO } from '../../dto'
 import { Product, ProductInformation } from '../../types'
 import './index.css'
 import Box from '@mui/material/Box';
@@ -14,9 +14,10 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { useNavigate } from 'react-router-dom'
+import {formatNumber} from '../../utils'
 
 export default function Dashboard() {
-  const [products, setProducts] = useState<Product[] | []>([])
+  const [products, setProducts] = useState<ProductDTO[] | []>([])
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -31,6 +32,8 @@ export default function Dashboard() {
 
       })
   }, [])
+
+  console.log(products)
 
   return (
     <div className='page' style={{ flexDirection: 'column' }}>
@@ -98,6 +101,12 @@ export default function Dashboard() {
 
         {
           products.map(product => {
+
+            const progressValue = product.current_deposit / product.max_deposit * 100
+
+            const formattedCurrentDeposit = formatNumber(product.current_deposit)
+            const formattedMaxDeposit = formatNumber(product.max_deposit)
+
             return <a
               key={product.id}
               href={`/product/${product.id}`}
@@ -116,7 +125,7 @@ export default function Dashboard() {
                       // backgroundColor: 'red',
                       zIndex: -1,
                       width: '40%',
-                    
+
                     }}
                   >
                     <Typography sx={{ fontSize: 15 }} component="div">
@@ -139,12 +148,33 @@ export default function Dashboard() {
                   <Typography variant="body2">
                     {product.projected_yield} %
                   </Typography>
-                  <LinearProgress />
 
+                  <br />
+                  <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                  <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>
+                    {`Current Deposits`}
+                  </Typography>
+                  <Typography sx={{ fontSize: 12 }} color="text.primary" gutterBottom>
+                    {formattedCurrentDeposit} {product.symbol}
+                  </Typography>
+                  </div>
+
+                  <LinearProgress color='primary' variant="determinate" value={progressValue}  />
+
+                  <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                  <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>
+                    {`Max Capacity`}
+                  </Typography>
+                  <Typography sx={{ fontSize: 12 }} color="text.primary" gutterBottom>
+                    {formattedMaxDeposit} {product.symbol}
+                  </Typography>
+                  </div>
+
+                  <br />
+                  <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>
+                    {`Your Position`}
+                  </Typography>
                 </CardContent>
-                <CardActions>
-                  <Button size="small">Learn More</Button>
-                </CardActions>
               </Card>
             </a>
           })

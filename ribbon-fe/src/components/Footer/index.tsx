@@ -18,7 +18,8 @@ export default function Header() {
                     flexDirection: 'row',
                     gap: 20,
                     width: '60%',
-                    justifyContent: 'center',
+                    justifyContent: 'flex-start',
+                    marginLeft: 10,
                 }}
             >
                 <a>
@@ -55,7 +56,8 @@ export default function Header() {
                     flexDirection: 'row',
                     gap: 20,
                     width: '40%',
-                    justifyContent: 'center',
+                    justifyContent: 'flex-end',
+                    marginRight: 20,
                 }}>
               
             <a>
