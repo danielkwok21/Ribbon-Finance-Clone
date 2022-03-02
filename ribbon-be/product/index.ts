@@ -3,7 +3,7 @@ import fs from 'fs'
 import { stringify } from 'querystring';
 import db from '../database/database.json'
 import {
-    Product
+    Product, ProductInformation
 } from '../types'
 import { GetProductDetailFailDTO, GetProductDetailSuccessDTO, GetProductsSuccessDTO } from './dto';
 const router = express.Router();
@@ -46,8 +46,8 @@ router.get('/:id', (req, res) => {
     const id = Number(req.params.id)
 
     try {
-        const { products: dbProducts } = db
-        const p = dbProducts.find(p => p.id === id)
+        const { products, productInformations } = db
+        const p = products.find(p => p.id === id)
 
         if (!p) {
             throw new Error(`Unable to find product of id ${id}`)
@@ -65,9 +65,22 @@ router.get('/:id', (req, res) => {
             updatedAt: p.updatedAt
         }
 
+        const pi = productInformations.find(pi => pi.product_id === id)
+        let productInformation: undefined | ProductInformation
+        if (pi) {
+            productInformation = {
+                id: pi?.id,
+                product_id: pi?.product_id,
+                content: pi?.content,
+                createdAt: pi?.createdAt,
+                updatedAt: pi?.updatedAt,
+            }
+        }
+
         const response: GetProductDetailSuccessDTO = {
             status: true,
-            product: product
+            product: product,
+            productInformation: productInformation
         }
         res.json(response)
 

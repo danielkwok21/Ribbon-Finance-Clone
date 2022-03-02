@@ -11,5 +11,14 @@
             "createdAt": 1646186473,
             "updatedAt": 1646186473
         }
+    ],
+    "productInformations":[
+        {
+            "id":1,
+            "product_id": 1,
+            "content":"# Te quod de unda infringat est calido\n## Corporis inops\nLorem markdownum felix arcumque *postquam*, tenenti cibo. Felix [fuit poteram](http://www.talisque-talaribus.net/non-vis) tibi, nimiumque, fixum ipse interdum ascensu gravitate solent digitis causa Iole quem coepto illo molimina. Animis haec communes primis servandam loca dextram crimen, in haec ultusque fluminibus lacerto imitataque. Haec clamant Sidonide **sic Pico** nepotum credere parenti, mitia stabat et *terras* qualem, has artes non!",
+            "createdAt": 1646186473,
+            "updatedAt": 1646186473
+        }
     ]
 }

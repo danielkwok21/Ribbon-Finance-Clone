@@ -1,5 +1,5 @@
 import {
-    Product
+    Product, ProductInformation
 } from '../types'
 
 export type GetProductsSuccessDTO = {
@@ -15,6 +15,7 @@ export type GetProductsFailDTO = {
 export type GetProductDetailSuccessDTO = {
     status: boolean,
     product: Product,
+    productInformation?: ProductInformation
 }
 
 export type GetProductDetailFailDTO = {
