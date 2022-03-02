@@ -109,7 +109,7 @@ export default function Dashboard() {
 
             return <a
               key={product.id}
-              href={`/product/${product.id}`}
+              href={`/product/${product.name}`}
 
             >
               <Card

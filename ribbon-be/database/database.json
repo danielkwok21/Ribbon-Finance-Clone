@@ -16,13 +16,13 @@
             ]
         },
         {
-            "icon": "https://cryptologos.cc/logos/solana-sol-logo.png",
+            "icon": "https://assets.coingecko.com/coins/images/23657/large/savax_blue.png?1644989825",
             "background": "rgba(0, 0, 0, 0) linear-gradient(270deg, rgba(17, 186, 240, 0.082) 1.04%, rgba(17, 186, 240, 0.27) 98.99%) repeat scroll 0% 0% / 200% 200%",
             "name": "T-SAVAX-C",
             "short_description": "Generates yield by running an automated sAVAX covered call strategy..",
             "long_description": "lorem ipsum",
             "projected_yield": 0.44,
-            "id": 1,
+            "id": 2,
             "symbol": "SAVAX",
             "createdAt": 1646186473,
             "updatedAt": 1646186473,
@@ -31,18 +31,18 @@
             ]
         },
         {
-            "icon": "https://cryptologos.cc/logos/solana-sol-logo.png",
+            "icon": "https://cryptologos.cc/logos/usd-coin-usdc-logo.png",
             "background": "rgba(0, 0, 0, 0) linear-gradient(270deg, rgba(62, 115, 196, 0.02) 1.04%, rgba(62, 115, 196, 0.19) 98.99%) repeat scroll 0% 0% / 200% 200%",
             "name": "T-USDC-P-AVAX",
             "short_description": "Generates yield by running an automated sAVAX covered call strategy..",
             "long_description": "lorem ipsum",
             "projected_yield": 0.44,
-            "id": 1,
-            "symbol": "SAVAX",
+            "id": 3,
+            "symbol": "USDC.E",
             "createdAt": 1646186473,
             "updatedAt": 1646186473,
             "strategy": [
-                "COVERED CALL"
+                "PUT-SELLING"
             ]
         }
     ],
@@ -50,7 +50,33 @@
         {
             "id": 1,
             "product_id": 1,
-            "content":"## Lacrimae nigris cum in est Achilli restabat\nLorem markdownum et\ntenebas *quoque*, perspicit traiecta; sic pater *facinus de\nreferre*. Iussos iram templa illo. Vacent nuda ultroque isdem **nullaque dolores** adloquitur ingrate **Iphinoum** cumque plura opus tenuere sedes inter, Erinys. Lapitharum Stygii, postquam iterumque deus: male nec iamque hoc Icare fallaciter eadem; iuvenum additis.",
+            "content": "## Lacrimae nigris cum in est Achilli restabat\nLorem markdownum et\ntenebas *quoque*, perspicit traiecta; sic pater *facinus de\nreferre*. Iussos iram templa illo. Vacent nuda ultroque isdem **nullaque dolores** adloquitur ingrate **Iphinoum** cumque plura opus tenuere sedes inter, Erinys. Lapitharum Stygii, postquam iterumque deus: male nec iamque hoc Icare fallaciter eadem; iuvenum additis.",
+            "createdAt": 1646186473,
+            "updatedAt": 1646186473
+        }
+    ],
+    "deposits": [
+        {
+            "id": 1,
+            "product_id": 1,
+            "current_deposit": 21890,
+            "max_deposit": 50000,
+            "createdAt": 1646186473,
+            "updatedAt": 1646186473
+        },
+        {
+            "id": 2,
+            "product_id": 2,
+            "current_deposit": 5439.87,
+            "max_deposit": 10000,
+            "createdAt": 1646186473,
+            "updatedAt": 1646186473
+        },
+        {
+            "id": 3,
+            "product_id": 3,
+            "current_deposit": 24520,
+            "max_deposit": 1000000,
             "createdAt": 1646186473,
             "updatedAt": 1646186473
         }

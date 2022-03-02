@@ -3,6 +3,7 @@ import fs from 'fs'
 import { stringify } from 'querystring';
 import db from '../database/database.json'
 import {
+    Deposit,
     Product, ProductInformation
 } from '../types'
 import { GetProductDetailDTO, GetProductsDTO } from './dto';
@@ -10,8 +11,8 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     try {
-        const { products: dbProducts } = db
-        let products = dbProducts.map(p => {
+
+        const products = db.products.map(p => {
             const product: Product = {
                 icon: p.icon,
                 name: p.name,
@@ -25,7 +26,14 @@ router.get('/', (req, res) => {
                 strategy: p.strategy,
                 background: p.background,
             }
-            return product
+
+            const deposit = db.deposits.find(d => d.product_id === product.id)
+
+            return {
+                ...product,
+                current_deposit: deposit?.current_deposit || 0,
+                max_deposit: deposit?.max_deposit || 0,
+            }
         })
 
         const response: GetProductsDTO = {
@@ -48,7 +56,7 @@ router.get('/:id', (req, res) => {
     const id = Number(req.params.id)
 
     try {
-        const { products, productInformations } = db
+        const { products, productInformations, deposits } = db
         const p = products.find(p => p.id === id)
 
         if (!p) {
@@ -81,10 +89,24 @@ router.get('/:id', (req, res) => {
             }
         }
 
+        const d = deposits.find(d => d.product_id === id)
+        let deposit: undefined | Deposit
+        if (d) {
+            deposit = {
+                id: d?.id,
+                product_id: d?.product_id,
+                current_deposit: d?.current_deposit,
+                max_deposit: d?.max_deposit,
+                createdAt: d?.createdAt,
+                updatedAt: d?.updatedAt,
+            }
+        }
+
         const response: GetProductDetailDTO = {
             status: true,
-            product: product,
-            productInformation: productInformation
+            product,
+            productInformation,
+            deposit,
         }
         res.json(response)
 
