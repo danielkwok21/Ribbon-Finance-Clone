@@ -8,7 +8,6 @@ export type GetProductsDTO = {
     message?: string,
 }
 
-
 export type GetProductDetailDTO = {
     status: boolean,
     product?: Product,

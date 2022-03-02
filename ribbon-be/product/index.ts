@@ -5,7 +5,7 @@ import db from '../database/database.json'
 import {
     Product, ProductInformation
 } from '../types'
-import { GetProductDetailFailDTO, GetProductDetailSuccessDTO, GetProductsSuccessDTO } from './dto';
+import { GetProductDetailDTO, GetProductsDTO } from './dto';
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -23,11 +23,12 @@ router.get('/', (req, res) => {
                 createdAt: p.createdAt,
                 updatedAt: p.updatedAt,
                 strategy: p.strategy,
+                background: p.background,
             }
             return product
         })
 
-        const response: GetProductsSuccessDTO = {
+        const response: GetProductsDTO = {
             status: true,
             products: products
         }
@@ -35,7 +36,7 @@ router.get('/', (req, res) => {
         res.json(response)
 
     } catch (err) {
-        const response: GetProductDetailFailDTO = {
+        const response: GetProductsDTO = {
             status: false,
             message: (err as Error).message,
         }
@@ -65,6 +66,7 @@ router.get('/:id', (req, res) => {
             createdAt: p.createdAt,
             updatedAt: p.updatedAt,
             strategy: p.strategy,
+            background: p.background,
         }
 
         const pi = productInformations.find(pi => pi.product_id === id)
@@ -79,7 +81,7 @@ router.get('/:id', (req, res) => {
             }
         }
 
-        const response: GetProductDetailSuccessDTO = {
+        const response: GetProductDetailDTO = {
             status: true,
             product: product,
             productInformation: productInformation
@@ -87,7 +89,7 @@ router.get('/:id', (req, res) => {
         res.json(response)
 
     } catch (err) {
-        const response: GetProductDetailFailDTO = {
+        const response: GetProductDetailDTO = {
             status: false,
             message: (err as Error).message,
         }

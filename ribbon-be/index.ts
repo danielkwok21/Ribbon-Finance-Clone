@@ -1,8 +1,12 @@
 
 import express from 'express'
-const app = express()
-const port = 3000
+import cors from 'cors'
 import product from './product/index'
+
+const app = express()
+const port = 5000
+
+app.use(cors())
 
 app.get('/healthcheck', (req, res) => {
     res.send('hello world from ribbon-be')
