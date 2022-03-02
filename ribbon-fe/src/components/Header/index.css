@@ -8,6 +8,7 @@
 
 a {
     text-decoration: none;
+    cursor: pointer;
 }
 
 .path-link:hover{

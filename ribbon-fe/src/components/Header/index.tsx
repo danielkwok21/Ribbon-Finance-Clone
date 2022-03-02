@@ -2,13 +2,18 @@ import React from 'react'
 import './index.css'
 import Typography from '@mui/material/Typography';
 import HomeIcon from '@mui/icons-material/Home';
+import { useNavigate } from 'react-router-dom';
+
 export default function Header() {
+
+    const navigate = useNavigate()
+
     return (
         <div
             className='header'
         >
             <div style={{ width: '20%', textAlign: 'center' }}>
-                <a href='/'>
+                <a  onClick={() => navigate('/')}>
                     <HomeIcon fontSize="large" style={{ color: 'white' }} />
                 </a>
             </div>
@@ -21,18 +26,13 @@ export default function Header() {
                     justifyContent: 'center',
                 }}
             >
-                <a
-                    href='/'
-                >
+                <a  onClick={() => navigate('/')}>
 
                     <Typography className='path-link' variant="subtitle1" color={window.location.pathname === '/' ? "text.primary" : "text.secondary"}>
                         PRODUCTS
                     </Typography>
                 </a>
-                <a
-                    href='/portfolio'
-                >
-
+                <a onClick={() => navigate('/portfolio')}>
                     <Typography className='path-link' variant="subtitle1" color={window.location.pathname === '/portfolio' ? "text.primary" : "text.secondary"}>
                         PORTFOLIO
                     </Typography>
@@ -41,7 +41,7 @@ export default function Header() {
 
             <div style={{ width: '20%', textAlign: 'center' }}>
                 <a
-                    href='#'
+                    
                 >
                     <Typography variant="subtitle1" id='connect-wallet-link'>
                         CONNECT WALLET

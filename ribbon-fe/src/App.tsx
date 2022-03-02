@@ -11,6 +11,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Portfolio from './pages/Portfolio';
 
 function App() {
 
@@ -28,10 +29,13 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Header />
         <BrowserRouter>
+          <Header />
           <Routes>
-            <Route path="/" element={<Dashboard />}/>
+            <Route path="/" element={<Dashboard />} />
+          </Routes>
+          <Routes>
+            <Route path="/portfolio" element={<Portfolio />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
