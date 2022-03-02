@@ -108,13 +108,26 @@ export default function Dashboard() {
                 raised={true} sx={{ minWidth: 275 }}
               >
                 <div style={{ height: 100, background: product.background }}>
+                  <div
+                    style={{
+                      padding: 10,
+                      boxShadow: `inset 0 0 2000px ${product.background}`,
+                      // filter: 'blur(1px)',
+                      // backgroundColor: 'red',
+                      zIndex: -1,
+                      width: '40%',
+                    
+                    }}
+                  >
+                    <Typography sx={{ fontSize: 15 }} component="div">
+                      {product.strategy}
+                    </Typography>
+                  </div>
                 </div>
                 <CardContent style={{ position: 'relative' }}>
                   <Avatar src={product.icon} style={{ position: 'absolute', top: -20, }} />
                   <Typography sx={{ fontSize: 30 }} color="text.primary" gutterBottom>
                     {product.name}
-                  </Typography>
-                  <Typography variant="h5" component="div">
                   </Typography>
                   <Typography sx={{ fontSize: 12 }} color="text.secondary">
                     {product.short_description}
