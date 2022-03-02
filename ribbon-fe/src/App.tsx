@@ -3,6 +3,7 @@ import './App.css';
 import Dashboard from './pages/Dashboard';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles'
 import Header from './components/Header';
+import Footer from './components/Footer'
 
 import * as color from '@mui/material/colors';
 import {
@@ -37,6 +38,7 @@ function App() {
           <Routes>
             <Route path="/portfolio" element={<Portfolio />} />
           </Routes>
+          <Footer />
         </BrowserRouter>
       </ThemeProvider>
     </div>
