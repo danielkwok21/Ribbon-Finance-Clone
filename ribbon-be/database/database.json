@@ -9,7 +9,8 @@
             "id": 1,
             "symbol": "SOL",
             "createdAt": 1646186473,
-            "updatedAt": 1646186473
+            "updatedAt": 1646186473,
+            "strategy": ["COVERED CALL"]
         }
     ],
     "productInformations":[

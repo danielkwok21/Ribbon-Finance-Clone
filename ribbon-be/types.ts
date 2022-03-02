@@ -8,6 +8,7 @@ export type Product = {
     symbol: string,
     createdAt: number,
     updatedAt: number,
+    strategy: string[],
 }
 
 export type ProductInformation = {

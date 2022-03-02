@@ -21,7 +21,8 @@ router.get('/', (req, res) => {
                 id: p.id,
                 symbol: p.symbol,
                 createdAt: p.createdAt,
-                updatedAt: p.updatedAt
+                updatedAt: p.updatedAt,
+                strategy: p.strategy,
             }
             return product
         })
@@ -62,7 +63,8 @@ router.get('/:id', (req, res) => {
             id: p.id,
             symbol: p.symbol,
             createdAt: p.createdAt,
-            updatedAt: p.updatedAt
+            updatedAt: p.updatedAt,
+            strategy: p.strategy,
         }
 
         const pi = productInformations.find(pi => pi.product_id === id)
