@@ -5,6 +5,12 @@ import { createTheme, ThemeProvider, styled } from '@mui/material/styles'
 import Header from './components/Header';
 
 import * as color from '@mui/material/colors';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
 
@@ -23,7 +29,11 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <Header />
-        <Dashboard />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Dashboard />}/>
+          </Routes>
+        </BrowserRouter>
       </ThemeProvider>
     </div>
   );

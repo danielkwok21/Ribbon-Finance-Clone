@@ -9,10 +9,15 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Avatar, LinearProgress } from '@mui/material';
+import { Avatar, LinearProgress, Select } from '@mui/material';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import { useNavigate } from 'react-router-dom'
 
 export default function Dashboard() {
   const [products, setProducts] = useState<Product[] | []>([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch('http://localhost:5000/product')
@@ -28,7 +33,67 @@ export default function Dashboard() {
   }, [])
 
   return (
-    <div className='page'>
+    <div className='page' style={{ flexDirection: 'column' }}>
+
+
+
+      <div
+        className='selector-container'
+      >
+        <FormControl fullWidth>
+          <InputLabel id="strategy-label">Strategy</InputLabel>
+          <Select
+            labelId="strategy-label"
+            value=''
+            onChange={e => {
+              const strategy: string = typeof e.target.value === 'string' ? e.target.value : ''
+              const searchParams = new URLSearchParams(window.location.search)
+              searchParams.set('strategy', strategy)
+
+              navigate(`?${searchParams.toString()}`)
+            }}
+          >
+            <MenuItem value={'COVERED-CALL'}>COVERED-CALL</MenuItem>
+            <MenuItem value={'PUT-SELLING'}>PUT-SELLING</MenuItem>
+          </Select>
+        </FormControl>
+
+        <FormControl fullWidth>
+          <InputLabel id="deposit-asset-label">Deposit Asset</InputLabel>
+          <Select
+            labelId="deposit-asset-label"
+            value=''
+            onChange={e => {
+              const strategy: string = typeof e.target.value === 'string' ? e.target.value : ''
+              const searchParams = new URLSearchParams(window.location.search)
+              searchParams.set('deposit_asset', strategy)
+
+              navigate(`?${searchParams.toString()}`)
+            }}
+          >
+            <MenuItem value={'AAVE'}>AAVE</MenuItem>
+            <MenuItem value={'ETH'}>ETH</MenuItem>
+            <MenuItem value={'USDC'}>USDC</MenuItem>
+          </Select>
+        </FormControl>
+
+
+        <FormControl fullWidth>
+          <InputLabel id="sort-by-label">Sort By</InputLabel>
+          <Select
+            labelId="sort-by-label"
+            value=''
+          >
+            <MenuItem value={'DEFAULT'}>DEFAULT</MenuItem>
+            <MenuItem value={'NEWEST FIRST'}>NEWEST FIRST</MenuItem>
+            <MenuItem value={'OLDEST FIRST'}>OLDEST FIRST</MenuItem>
+          </Select>
+        </FormControl>
+
+      </div>
+
+
+
       <div className='card-container'>
 
         {
@@ -72,6 +137,6 @@ export default function Dashboard() {
           })
         }
       </div>
-    </div>
+    </div >
   )
 }
