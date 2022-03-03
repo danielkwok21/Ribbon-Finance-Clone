@@ -33,8 +33,14 @@ export default function Dashboard() {
       })
   }, [])
 
-  console.log(products)
+  const urlParams = new URLSearchParams(window.location.search)
+  const strategy = urlParams.get('strategy')
+  const deposit_asset = urlParams.get('deposit_asset')
+  const sort_by = urlParams.get('sort_by')
 
+
+  console.log(strategy, deposit_asset, sort_by)
+  
   return (
     <div className='page' style={{ flexDirection: 'column' }}>
 
@@ -47,7 +53,7 @@ export default function Dashboard() {
           <InputLabel id="strategy-label">Strategy</InputLabel>
           <Select
             labelId="strategy-label"
-            value=''
+            value={strategy}
             onChange={e => {
               const strategy: string = typeof e.target.value === 'string' ? e.target.value : ''
               const searchParams = new URLSearchParams(window.location.search)
@@ -56,7 +62,8 @@ export default function Dashboard() {
               navigate(`?${searchParams.toString()}`)
             }}
           >
-            <MenuItem value={'COVERED-CALL'}>COVERED-CALL</MenuItem>
+          <MenuItem value={'ALL'}>ALL</MenuItem>
+            <MenuItem value={'COVERED CALL'}>COVERED-CALL</MenuItem>
             <MenuItem value={'PUT-SELLING'}>PUT-SELLING</MenuItem>
           </Select>
         </FormControl>
@@ -65,7 +72,7 @@ export default function Dashboard() {
           <InputLabel id="deposit-asset-label">Deposit Asset</InputLabel>
           <Select
             labelId="deposit-asset-label"
-            value=''
+            value={deposit_asset}
             onChange={e => {
               const strategy: string = typeof e.target.value === 'string' ? e.target.value : ''
               const searchParams = new URLSearchParams(window.location.search)
@@ -74,9 +81,10 @@ export default function Dashboard() {
               navigate(`?${searchParams.toString()}`)
             }}
           >
+          <MenuItem value={'ALL'}>ALL</MenuItem>
             <MenuItem value={'AAVE'}>AAVE</MenuItem>
             <MenuItem value={'ETH'}>ETH</MenuItem>
-            <MenuItem value={'USDC'}>USDC</MenuItem>
+            <MenuItem value={'USDC.E'}>USDC.E</MenuItem>
           </Select>
         </FormControl>
 
@@ -85,7 +93,14 @@ export default function Dashboard() {
           <InputLabel id="sort-by-label">Sort By</InputLabel>
           <Select
             labelId="sort-by-label"
-            value=''
+            value={sort_by}
+            onChange={e => {
+              const strategy: string = typeof e.target.value === 'string' ? e.target.value : ''
+              const searchParams = new URLSearchParams(window.location.search)
+              searchParams.set('sort_by', strategy)
+
+              navigate(`?${searchParams.toString()}`)
+            }}
           >
             <MenuItem value={'DEFAULT'}>DEFAULT</MenuItem>
             <MenuItem value={'NEWEST FIRST'}>NEWEST FIRST</MenuItem>
@@ -100,7 +115,22 @@ export default function Dashboard() {
       <div className='card-container'>
 
         {
-          products.map(product => {
+          products
+          .filter(product => {
+            if(strategy && strategy !== 'ALL' && !product.strategy.includes(strategy)) return false
+            if(deposit_asset && deposit_asset !== 'ALL' && product.symbol !== deposit_asset) return false
+            return true
+          })
+          .sort((a, b) => {
+            switch(sort_by){
+              case 'NEWEST FIRST':
+                return b.createdAt - a.createdAt
+              case 'OLDEST FIRST':
+                return a.createdAt - b.createdAt
+            }
+            return 1
+          })
+          .map(product => {
 
             const progressValue = product.current_deposit / product.max_deposit * 100
 
