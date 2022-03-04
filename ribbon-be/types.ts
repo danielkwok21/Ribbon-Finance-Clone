@@ -15,7 +15,9 @@ export type Product = {
 export type ProductInformation = {
     id: number,
     product_id: number,
-    content: string, // markdown
+    withdrawals: string,
+    fee_structure: string,
+    risk: string,
     createdAt: number,
     updatedAt: number,
 }
@@ -63,3 +65,15 @@ export type Deposit = {
     updatedAt: number,
 }
 
+export type ProductActivity = {
+    id: number,
+    product_id: number,
+    action: string,
+    contract: string,
+    strike_price: number,
+    quantity: number,
+    yield?: number,
+    yield_dollar?: number,
+    createdAt: number,
+    updatedAt: number,
+}

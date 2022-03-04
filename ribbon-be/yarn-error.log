@@ -1,0 +1,54 @@
+Arguments: 
+  /home/daniel/.nvm/versions/node/v16.13.1/bin/node /usr/share/yarn/bin/yarn.js add @mui
+
+PATH: 
+  /home/daniel/.rbenv/plugins/ruby-build/bin:/home/daniel/.rbenv/shims:/home/daniel/.rbenv/bin:/home/daniel/.nvm/versions/node/v16.13.1/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/daniel/.local/bin:/home/daniel/.rbenv/plugins/ruby-build/bin:/home/daniel/.rbenv/shims:/home/daniel/.rbenv/bin:/home/daniel/Downloads/google-cloud-sdk/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/daniel/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/opt/android-studio/bin:/snap/bin:/usr/local/go/bin:=/home/daniel/go/src/github.com/googlecodelabs/tools/claat/bin:=~/go/bin:/home/daniel/Android/Sdk/emulator:/home/daniel/Android/Sdk/tools:/home/daniel/Android/Sdk/tools/bin:/home/daniel/Android/Sdk/platform-tools:/usr/local/hadoop/bin/:/usr/local/go/bin:=/home/daniel/go/src/github.com/googlecodelabs/tools/claat/bin:=~/go/bin:/home/daniel/Android/Sdk/emulator:/home/daniel/Android/Sdk/tools:/home/daniel/Android/Sdk/tools/bin:/home/daniel/Android/Sdk/platform-tools:/usr/local/hadoop/bin/
+
+Yarn version: 
+  1.21.1
+
+Node version: 
+  16.13.1
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@mui: Request "https://registry.yarnpkg.com/@mui" returned a 405
+      at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:66956:18)
+      at Request.self.callback (/usr/share/yarn/lib/cli.js:140665:22)
+      at Request.emit (node:events:390:28)
+      at Request.<anonymous> (/usr/share/yarn/lib/cli.js:141637:10)
+      at Request.emit (node:events:390:28)
+      at IncomingMessage.<anonymous> (/usr/share/yarn/lib/cli.js:141559:12)
+      at Object.onceWrapper (node:events:509:28)
+      at IncomingMessage.emit (node:events:402:35)
+      at endReadableNT (node:internal/streams/readable:1343:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+
+npm manifest: 
+  {
+    "name": "ribbon-be",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "start": "nodemon index.ts",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "@types/cors": "^2.8.12",
+      "@types/express": "^4.17.13",
+      "@types/node": "^17.0.21",
+      "ts-node": "^10.6.0",
+      "typescript": "^4.6.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
