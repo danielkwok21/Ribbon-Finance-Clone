@@ -14,22 +14,21 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { useNavigate } from 'react-router-dom'
-import {formatNumber} from '../../utils'
+import { formatNumber } from '../../utils'
+import { getProducts } from '../../services/api';
 
 export default function Dashboard() {
   const [products, setProducts] = useState<ProductDTO[] | []>([])
   const navigate = useNavigate()
 
   useEffect(() => {
-    fetch('http://localhost:5000/product')
-      .then(res => res.json())
+    getProducts()
       .then(res => {
-        const dto: GetProductsDTO = {
-          ...res
-        }
-
-        setProducts(dto.products || [])
-
+        if (res.status !== true) throw res.message
+        setProducts(res.products || [])
+      })
+      .catch((err: string) => {
+        console.error(err)
       })
   }, [])
 
@@ -40,7 +39,7 @@ export default function Dashboard() {
 
 
   console.log(strategy, deposit_asset, sort_by)
-  
+
   return (
     <div className='page' style={{ flexDirection: 'column' }}>
 
@@ -62,7 +61,7 @@ export default function Dashboard() {
               navigate(`?${searchParams.toString()}`)
             }}
           >
-          <MenuItem value={'ALL'}>ALL</MenuItem>
+            <MenuItem value={'ALL'}>ALL</MenuItem>
             <MenuItem value={'COVERED CALL'}>COVERED-CALL</MenuItem>
             <MenuItem value={'PUT-SELLING'}>PUT-SELLING</MenuItem>
           </Select>
@@ -81,7 +80,7 @@ export default function Dashboard() {
               navigate(`?${searchParams.toString()}`)
             }}
           >
-          <MenuItem value={'ALL'}>ALL</MenuItem>
+            <MenuItem value={'ALL'}>ALL</MenuItem>
             <MenuItem value={'AAVE'}>AAVE</MenuItem>
             <MenuItem value={'ETH'}>ETH</MenuItem>
             <MenuItem value={'USDC.E'}>USDC.E</MenuItem>
@@ -116,98 +115,98 @@ export default function Dashboard() {
 
         {
           products
-          .filter(product => {
-            if(strategy && strategy !== 'ALL' && !product.strategy.includes(strategy)) return false
-            if(deposit_asset && deposit_asset !== 'ALL' && product.symbol !== deposit_asset) return false
-            return true
-          })
-          .sort((a, b) => {
-            switch(sort_by){
-              case 'NEWEST FIRST':
-                return b.createdAt - a.createdAt
-              case 'OLDEST FIRST':
-                return a.createdAt - b.createdAt
-            }
-            return 1
-          })
-          .map(product => {
+            .filter(product => {
+              if (strategy && strategy !== 'ALL' && !product.strategy.includes(strategy)) return false
+              if (deposit_asset && deposit_asset !== 'ALL' && product.symbol !== deposit_asset) return false
+              return true
+            })
+            .sort((a, b) => {
+              switch (sort_by) {
+                case 'NEWEST FIRST':
+                  return b.createdAt - a.createdAt
+                case 'OLDEST FIRST':
+                  return a.createdAt - b.createdAt
+              }
+              return 1
+            })
+            .map(product => {
 
-            const progressValue = product.current_deposit / product.max_deposit * 100
+              const progressValue = product.current_deposit / product.max_deposit * 100
 
-            const formattedCurrentDeposit = formatNumber(product.current_deposit)
-            const formattedMaxDeposit = formatNumber(product.max_deposit)
+              const formattedCurrentDeposit = formatNumber(product.current_deposit)
+              const formattedMaxDeposit = formatNumber(product.max_deposit)
 
-            return <a
-              key={product.id}
-              href={`/product/${product.name}`}
+              return <a
+                key={product.id}
+                href={`/product/${product.name}`}
 
-            >
-              <Card
-                className='card'
-                raised={true} sx={{ minWidth: 275 }}
               >
-                <div style={{ height: 100, background: product.background }}>
-                  <div
-                    style={{
-                      padding: 10,
-                      boxShadow: `inset 0 0 2000px ${product.background}`,
-                      // filter: 'blur(1px)',
-                      // backgroundColor: 'red',
-                      zIndex: -1,
-                      width: '40%',
+                <Card
+                  className='card'
+                  raised={true} sx={{ minWidth: 275 }}
+                >
+                  <div style={{ height: 100, background: product.background }}>
+                    <div
+                      style={{
+                        padding: 10,
+                        boxShadow: `inset 0 0 2000px ${product.background}`,
+                        // filter: 'blur(1px)',
+                        // backgroundColor: 'red',
+                        zIndex: -1,
+                        width: '40%',
 
-                    }}
-                  >
-                    <Typography sx={{ fontSize: 15 }} component="div">
-                      {product.strategy}
+                      }}
+                    >
+                      <Typography sx={{ fontSize: 15 }} component="div">
+                        {product.strategy}
+                      </Typography>
+                    </div>
+                  </div>
+                  <CardContent style={{ position: 'relative' }}>
+                    <Avatar src={product.icon} style={{ position: 'absolute', top: -20, }} />
+                    <Typography sx={{ fontSize: 30 }} color="text.primary" gutterBottom>
+                      {product.name}
                     </Typography>
-                  </div>
-                </div>
-                <CardContent style={{ position: 'relative' }}>
-                  <Avatar src={product.icon} style={{ position: 'absolute', top: -20, }} />
-                  <Typography sx={{ fontSize: 30 }} color="text.primary" gutterBottom>
-                    {product.name}
-                  </Typography>
-                  <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                    {product.short_description}
-                  </Typography>
-                  <br />
-                  <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                    CURRENT PROJECTED YIELD (APY)
-                  </Typography>
-                  <Typography variant="body2">
-                    {product.projected_yield} %
-                  </Typography>
+                    <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                      {product.short_description}
+                    </Typography>
+                    <br />
+                    <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                      CURRENT PROJECTED YIELD (APY)
+                    </Typography>
+                    <Typography variant="body2">
+                      {product.projected_yield} %
+                    </Typography>
 
-                  <br />
-                  <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                  <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>
-                    {`Current Deposits`}
-                  </Typography>
-                  <Typography sx={{ fontSize: 12 }} color="text.primary" gutterBottom>
-                    {formattedCurrentDeposit} {product.symbol}
-                  </Typography>
-                  </div>
+                    <br />
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                      <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>
+                        {`Current Deposits`}
+                      </Typography>
+                      <Typography sx={{ fontSize: 12 }} color="text.primary" gutterBottom>
+                        {formattedCurrentDeposit} {product.symbol}
+                      </Typography>
+                    </div>
 
-                  <LinearProgress color='primary' variant="determinate" value={progressValue}  />
+                    <LinearProgress color='primary' variant="determinate" value={progressValue} />
 
-                  <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                  <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>
-                    {`Max Capacity`}
-                  </Typography>
-                  <Typography sx={{ fontSize: 12 }} color="text.primary" gutterBottom>
-                    {formattedMaxDeposit} {product.symbol}
-                  </Typography>
-                  </div>
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                      <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>
+                        {`Max Capacity`}
+                      </Typography>
+                      <Typography sx={{ fontSize: 12 }} color="text.primary" gutterBottom>
+                        {formattedMaxDeposit} {product.symbol}
+                      </Typography>
+                    </div>
 
-                  <br />
-                  <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>
-                    {`Your Position`}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </a>
-          })
+                    <br />
+                    <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>
+                      {`Your Position`}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </a>
+            })
         }
       </div>
     </div >

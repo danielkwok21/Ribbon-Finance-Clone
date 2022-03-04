@@ -14,22 +14,21 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { useNavigate } from 'react-router-dom'
+import { getProducts } from '../../services/api';
 
 export default function Dashboard() {
     const [products, setProducts] = useState<Product[] | []>([])
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch('http://localhost:5000/product')
-            .then(res => res.json())
-            .then(res => {
-                const dto: GetProductsDTO = {
-                    ...res
-                }
-
-                setProducts(dto.products || [])
-
-            })
+        getProducts()
+        .then(res => {
+            if(res.status !== true) throw res.message
+            setProducts(res.products || [])
+        })
+        .catch((err:string) => {
+            console.error(err)
+        })
     }, [])
 
     return (

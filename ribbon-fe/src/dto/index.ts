@@ -66,3 +66,8 @@ export type GetProductActivitiesDTO = {
     productActivities?: GetProductActivity[],
     message?: string,
 }
+
+export type MarketChartDTO = {
+    prices: number[]
+  }
+  

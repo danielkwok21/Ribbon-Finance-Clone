@@ -13,6 +13,8 @@ import FormControl from '@mui/material/FormControl';
 import { useNavigate, useParams } from 'react-router-dom'
 import { formatNumber, getDurationInDaysAgo } from '../../utils'
 import { DataGrid, GridRowsProp, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import { getProductActivitiesByName, getProductDetailByName } from '../../services/api';
+import VaultPerformance from './vaultPerformance';
 
 export default function ProductDetail() {
   const [productDetail, setProductDetail] = useState<GetProductDetailDTO | undefined>()
@@ -21,19 +23,12 @@ export default function ProductDetail() {
   const params = useParams()
 
   useEffect(() => {
-    fetch(`http://localhost:5000/product/${params.name}`)
-      .then(res => res.json())
+    getProductDetailByName(params.name || '')
       .then(res => {
-        const dto: GetProductDetailDTO = {
-          ...res
-        }
-
-        setProductDetail(dto)
-
+        setProductDetail(res)
       })
 
-    fetch(`http://localhost:5000/product/activities/${params.name}`)
-      .then(res => res.json())
+    getProductActivitiesByName(params.name || '')
       .then(res => {
         const dto: GetProductActivitiesDTO = {
           ...res
@@ -44,7 +39,6 @@ export default function ProductDetail() {
       })
   }, [])
 
-  console.log(productActivities)
 
   const rows: GridRowsProp = productActivities
 
@@ -213,6 +207,7 @@ export default function ProductDetail() {
             <Typography variant='h6' color="text.primary">
               VAULT PERFORMANCE
             </Typography>
+            <VaultPerformance />
 
 
             <div style={{ marginTop: 50 }}>
