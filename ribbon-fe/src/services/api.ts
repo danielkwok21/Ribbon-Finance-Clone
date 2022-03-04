@@ -42,7 +42,12 @@ export const getCoinGeckoMarketChart = (coinName: string, currency: string = "us
         .then(res => {
             /**transform into usable format */
             const result: MarketChartDTO = {
-                prices: res.prices.map((p: number[]) => p[1])
+                prices: res.prices.map((p: number[]) => {
+                    return {
+                        date: p[0],
+                        price: p[1],
+                    }
+                })
             }
 
             return result

@@ -194,7 +194,7 @@ export default function ProductDetail() {
           }}
         >
           <div
-            style={{ flex: 3 }}
+            style={{ flex: 3, }}
           >
 
             <Typography variant='h6' color="text.primary">
@@ -245,8 +245,8 @@ export default function ProductDetail() {
               </Typography>
 
             </div>
-
           </div>
+
           <div
             style={{ flex: 3 }}
           >

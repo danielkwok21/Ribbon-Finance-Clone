@@ -68,6 +68,9 @@ export type GetProductActivitiesDTO = {
 }
 
 export type MarketChartDTO = {
-    prices: number[]
+    prices: {
+        price: number,
+        date: number,
+    }[]
   }
   
