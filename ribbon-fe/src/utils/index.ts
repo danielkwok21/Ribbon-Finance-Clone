@@ -11,3 +11,18 @@ export function formatNumber(value: number): string {
 
     return newValue
 }
+
+export function getDurationInDaysAgo(startTime: number): string {
+    const secondsInDay = 60*60*24
+    const durationInSeconds = (Date.now()/1000) - startTime
+
+    if(durationInSeconds < 0){
+        return ''
+    }else if (durationInSeconds < secondsInDay){
+        return 'Less than a day ago'
+    }else {
+        const days = (durationInSeconds / secondsInDay).toFixed(0)
+
+        return `${days} days ago`
+    }
+}

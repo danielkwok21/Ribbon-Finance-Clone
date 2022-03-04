@@ -65,3 +65,15 @@ export type Deposit = {
     updatedAt: number,
 }
 
+export type ProductActivity = {
+    id: number,
+    product_id: number,
+    action: string,
+    contract: string,
+    strike_price: number,
+    quantity: number,
+    yield?: number,
+    yield_dollar?: number,
+    createdAt: number,
+    updatedAt: number,
+}

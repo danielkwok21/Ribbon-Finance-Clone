@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { GetProductDetailDTO, GetProductsDTO, ProductDTO } from '../../dto'
-import { Product, ProductInformation } from '../../types'
+import { GetProductActivitiesDTO, GetProductActivity, GetProductDetailDTO, GetProductsDTO, ProductDTO } from '../../dto'
+import { Product, ProductActivity, ProductInformation } from '../../types'
 import './index.css'
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Avatar, LinearProgress, Select } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { useNavigate, useParams } from 'react-router-dom'
-import { formatNumber } from '../../utils'
+import { formatNumber, getDurationInDaysAgo } from '../../utils'
+import { DataGrid, GridRowsProp, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 
 export default function ProductDetail() {
   const [productDetail, setProductDetail] = useState<GetProductDetailDTO | undefined>()
+  const [productActivities, setProductActivities] = useState<ProductActivity[] | []>([])
   const navigate = useNavigate()
   const params = useParams()
 
@@ -32,8 +31,91 @@ export default function ProductDetail() {
         setProductDetail(dto)
 
       })
+
+    fetch(`http://localhost:5000/product/activities/${params.name}`)
+      .then(res => res.json())
+      .then(res => {
+        const dto: GetProductActivitiesDTO = {
+          ...res
+        }
+
+        setProductActivities(dto.productActivities || [])
+
+      })
   }, [])
 
+  console.log(productActivities)
+
+  const rows: GridRowsProp = productActivities
+
+  const columns: GridColDef[] = [
+    {
+      field: 'action', headerName: 'Action', flex: 1,
+      renderCell: (params: GridRenderCellParams) => {
+        const productActivity: ProductActivity = params.row
+        const dateBetween = getDurationInDaysAgo(productActivity.updatedAt)
+
+        return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 10 }}>
+          {
+            params.value === 'SOLD CONTRACTS' ?
+              <AttachMoneyIcon color='primary' />
+              :
+              <AutoAwesomeMotionIcon color='secondary' />
+          }
+          <div>
+
+            <Typography style={{ fontSize: 12 }} display="block" color='text.primary'>
+              {params.value}
+            </Typography>
+
+            <Typography style={{ fontSize: 10 }} display="block" color='text.secondary'>
+              {dateBetween}
+            </Typography>
+          </div>
+        </div>
+      }
+    },
+    {
+      field: 'contract', headerName: 'Contract', flex: 1,
+      renderCell: (params: GridRenderCellParams) => {
+        const productActivity: ProductActivity = params.row
+
+        return <div>
+          <Typography style={{ fontSize: 12 }} display="block" color='text.primary'>
+            {params.value}
+          </Typography>
+
+          <Typography style={{ fontSize: 10 }} display="block" color='text.secondary'>
+            Strike {productActivity.strike_price}
+          </Typography>
+        </div>
+      }
+    },
+    {
+      field: 'quantity', headerName: 'Quantity', flex: 1,
+    },
+    {
+      field: '', headerName: 'Yield', flex: 1,
+      renderCell: (params: GridRenderCellParams) => {
+        const productActivity: GetProductActivity = params.row
+
+        return <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }} >
+          <div>
+            <Typography style={{ fontSize: 12 }} display="block" color='rgb(22, 206, 185)'>
+              {productActivity.yield_string}
+            </Typography>
+
+            <Typography style={{ fontSize: 10 }} display="block" color='text.secondary'>
+              {productActivity.yield_dollar_string}
+            </Typography>
+          </div>
+          <a href='#'>
+            <OpenInNewIcon fontSize='small' color='disabled' />
+          </a>
+        </div>
+      }
+    },
+  ]
 
   const urlParams = new URLSearchParams(window.location.search)
   const strategy = urlParams.get('strategy')
@@ -198,12 +280,13 @@ export default function ProductDetail() {
           }}
         >
           <div
-            style={{ marginTop: 50 }}
+            style={{ marginTop: 50, width: '100%' }}
           >
             <div
               style={{
                 display: 'flex',
-                flexDirection: 'row'
+                flexDirection: 'row',
+                marginBottom: 20,
               }}
             >
 
@@ -251,10 +334,9 @@ export default function ProductDetail() {
                 </Select>
               </FormControl>
             </div>
-            <Typography variant='h6' color="text.secondary">
-              _ _ _
-            </Typography>
-
+            <div style={{ height: 300, width: '100%' }}>
+              <DataGrid rows={rows} columns={columns} />
+            </div>
           </div>
         </div>
       </div>

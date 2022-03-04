@@ -1,5 +1,5 @@
 import {
-    Product, ProductInformation, Deposit,
+    Product, ProductInformation, Deposit,ProductActivity
 } from '../types'
 
 export type ProductDTO = {
@@ -35,4 +35,34 @@ export type GetProductDetailDTO = {
     productInformation?: ProductInformation
     message?: string,
     deposit?: Deposit,
+}
+
+export type GetProductActivity = {
+
+    /**
+     * 4/3/2022 daniel.kwok
+     * Copied statically from Product
+     * plus some massaged fields
+     */
+
+    id: number,
+    product_id: number,
+    action: string,
+    contract: string,
+    strike_price: number,
+    quantity: number,
+    yield?: number,
+    yield_dollar?: number,
+    createdAt: number,
+    updatedAt: number,
+
+    yield_string: string,
+    yield_dollar_string:string,
+
+}
+
+export type GetProductActivitiesDTO = {
+    status: boolean,
+    productActivities?: GetProductActivity[],
+    message?: string,
 }
