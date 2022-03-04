@@ -15,7 +15,9 @@ export type Product = {
 export type ProductInformation = {
     id: number,
     product_id: number,
-    content: string, // markdown
+    withdrawals: string,
+    fee_structure: string,
+    risk: string,
     createdAt: number,
     updatedAt: number,
 }

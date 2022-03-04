@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Dashboard from './pages/Dashboard';
+import ProductDetail from './pages/ProductDetail';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles'
 import Header from './components/Header';
 import Footer from './components/Footer'
@@ -37,6 +38,9 @@ function App() {
           </Routes>
           <Routes>
             <Route path="/portfolio" element={<Portfolio />} />
+          </Routes>
+          <Routes>
+            <Route path="/product/:name" element={<ProductDetail />} />
           </Routes>
           <Footer />
         </BrowserRouter>

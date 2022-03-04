@@ -1,5 +1,5 @@
 import {
-    Product, ProductInformation
+    Product, ProductInformation, Deposit,
 } from '../types'
 
 export type ProductDTO = {
@@ -33,5 +33,6 @@ export type GetProductDetailDTO = {
     status: boolean,
     product?: Product,
     productInformation?: ProductInformation
-    message?: string
+    message?: string,
+    deposit?: Deposit,
 }
