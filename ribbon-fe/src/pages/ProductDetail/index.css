@@ -31,6 +31,15 @@
     align-items: center;
 }
 
+.strategy-snapshot-container {
+    width: 100%;
+    display: flex;
+}
+
+.strategy-snapshot-details-container {
+    flex:3;
+}
+
 @media only screen and (max-width: 900px) {
     #product-header-right {
         flex: 0;

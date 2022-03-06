@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react'
 import { Chart, registerables } from 'chart.js'
+import Typography from '@mui/material/Typography';
 import { getCoinGeckoMarketChart } from '../../services/api'
+
+const GRADIENT_COLOR = '#122c2e'
+const CONTRAST_COLOR = '#13a696'
 
 export default function VaultPerformance() {
 
@@ -101,6 +105,26 @@ export default function VaultPerformance() {
                 style={{ maxWidth: window.innerWidth * 0.5 }}
             ></canvas>
 
+            <div
+                className='strategy-snapshot-container'
+            >
+                <div className='strategy-snapshot-details-container'>
+                    <Typography style={{ fontSize: 12 }} color='text.secondary'>
+                        Projected Yield
+                    </Typography>
+                    <Typography style={{ fontSize: 15 }} color={CONTRAST_COLOR}>
+                        {/* TODO insert projected yield */}
+                    </Typography>
+                </div>
+                <div className='strategy-snapshot-details-container'>
+                    <Typography style={{ fontSize: 12 }} color='text.secondary'>
+                        Previous Week Performance
+                    </Typography>
+                    <Typography style={{ fontSize: 15 }} color='text.primary'>
+                        {/* TODO insert prev week perf */}
+                    </Typography>
+                </div>
+            </div>
         </div>
     )
 }

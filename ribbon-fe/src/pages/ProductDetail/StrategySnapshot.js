@@ -1,66 +1,73 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Chart, registerables } from 'chart.js'
-import { getCoinGeckoMarketChart } from '../../services/api'
+import Typography from '@mui/material/Typography';
+import { getCoinGeckoMarketChart, getStrategySnapshotByName } from '../../services/api'
 import {
-    GetProductDetailDTO
+    GetProductDetailDTO,
+    GetStrategySnapshotDTO
 } from '../../dto'
+import { useParams } from 'react-router-dom'
+
+
+const GRADIENT_COLOR = '#122c2e'
+const CONTRAST_COLOR = '#13a696'
 
 
 export default function StrategySnapshot() {
 
+    const params = useParams()
+    const [strategySnapshot, setStrategySnapshot] = useState({})
 
     useEffect(async () => {
 
         const el = document.getElementById('vault-performance-chart-id')
         if (!el) return null
 
-        getCoinGeckoMarketChart('solana', 'usd', 365, 'daily')
+        getStrategySnapshotByName(params.name)
             .then(res => {
-                var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                const msInWeek = 1000 * 60 * 60 * 24 * 7
-
-                const latestData = res.prices[res.prices.length - 1]
-                latestData.readableDate = new Date(latestData.date).toLocaleDateString('en-US', options)
-
-                const interestedData = [latestData]
-                const numberOfWeeks = 5
-                for (let i = 0; i < numberOfWeeks; i++) {
-                    const currData = interestedData[i]
-                    const lastWeekDate = currData.date - msInWeek
-
-                    const prevData = res.prices.find(p => {
-                        return p.date < currData.date && p.date > lastWeekDate
-                    })
-
-                    prevData.readableDate = new Date(prevData.date).toLocaleDateString('en-US', options)
-
-                    interestedData.push(prevData)
+                if (res.status === true) {
+                    setStrategySnapshot(res.strategySnapshot || {})
                 }
+                const ctx = el.getContext('2d')
+                const GRADIENT = ctx.createLinearGradient(0, 0, 300, 300);
+                GRADIENT.addColorStop(0, GRADIENT_COLOR);
+                GRADIENT.addColorStop(1, GRADIENT_COLOR);
 
-                interestedData.sort((a, b) => a.date - b.date)
 
-                const labels = interestedData.map(d => d.readableDate)
-                const datasetData = interestedData.map(d => d.price)
+                let labels = []
+                let datasetDataA = []
+                let datasetDataB = []
+                for (let i = 0; i < 5; i++) {
+                    labels.push(res.strategySnapshot.current_price_dollar)
+                    datasetDataA.push(res.strategySnapshot.current_price_dollar)
+                    datasetDataB.push(res.strategySnapshot.strike_price_dollar)
+                }
 
                 Chart.register(...registerables)
 
 
-                const ctx = el.getContext('2d')
-
-                const gradient = ctx.createLinearGradient(0, 0, 300, 300);
-                gradient.addColorStop(0, '#122c2e');
-                gradient.addColorStop(1, '#121A1E');
-
-
                 const data = {
                     labels: labels,
-                    datasets: [{
-                        backgroundColor: gradient,
-                        borderColor: `#13a696`,
-                        fill: true,
-                        data: datasetData
-                    }]
+                    datasets: [
+                        {
+                            pointRadius: 0,
+                            backgroundColor: GRADIENT,
+                            borderColor: `#13a696`,
+                            // fill: true,
+                            data: datasetDataA
+                        }, {
+                            pointRadius: 0,
+                            data: datasetDataB,
+                            segment: {
+                                borderColor: ctx => 'WHITE',
+                                borderDash: ctx => [6, 6],
+                                borderWidth: ctx => 1,
+                            },
+                            spanGaps: true
+                        }
+                    ]
                 };
+
 
                 const config = {
                     type: 'line',
@@ -70,18 +77,8 @@ export default function StrategySnapshot() {
                             legend: {
                                 display: false,
                             },
-                            // tooltip: {
-                            //     callbacks: {
-                            //         footer: (tooltipItem) => {
-                            //         }
-                            //     }
-                            // }
                         },
                         scales: {
-                            y: {
-                                min: Math.min(...datasetData),
-                                max: Math.max(...datasetData),
-                            },
                             xAxis: {
                                 display: false,
                             }
@@ -103,8 +100,42 @@ export default function StrategySnapshot() {
         <div style={{ margin: 10 }}>
             <canvas id="vault-performance-chart-id" width="100%" height="50px"
                 style={{ maxWidth: window.innerWidth * 0.5 }}
-            ></canvas>
+            >
 
+            </canvas>
+
+            <div
+                className='strategy-snapshot-container'
+            >
+                <div className='strategy-snapshot-details-container'>
+                    <Typography style={{ fontSize: 12 }} color='text.secondary'>
+                        Current SOL Price
+                    </Typography>
+                    <Typography style={{ fontSize: 15 }} color={CONTRAST_COLOR}>
+                        {strategySnapshot.current_price_dollar_string}
+                    </Typography>
+                    <Typography style={{ fontSize: 12 }} color='text.secondary'>
+                        This Week's Performance
+                    </Typography>
+                    <Typography style={{ fontSize: 15 }} color={CONTRAST_COLOR}>
+                        {strategySnapshot.performance_string}
+                    </Typography>
+                </div>
+                <div className='strategy-snapshot-details-container'>
+                    <Typography style={{ fontSize: 12 }} color='text.secondary'>
+                        Selected SOL Strike Price
+                    </Typography>
+                    <Typography style={{ fontSize: 15 }} color='text.primary'>
+                        {strategySnapshot.strike_price_dollar_string}
+                    </Typography>
+                    <Typography style={{ fontSize: 12 }} color='text.secondary'>
+                        Time to Expiry
+                    </Typography>
+                    <Typography style={{ fontSize: 15 }} color='text.primary'>
+                        {strategySnapshot.time_to_expiry_string}
+                    </Typography>
+                </div>
+            </div>
         </div>
     )
 }

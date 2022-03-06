@@ -201,7 +201,7 @@ export default function ProductDetail() {
           }}
         >
           <div
-            style={{ flex: 3, }}
+            style={{ flex: 3,}}
           >
 
             <Typography variant='h6' color="text.primary">
@@ -212,11 +212,14 @@ export default function ProductDetail() {
               dangerouslySetInnerHTML={{ __html: productDetail?.productInformation?.strategy || "" }}
             >
             </Typography>
+
+            <br />
             <Typography variant='h6' color="text.primary">
               WEEKLY STRATEGY SNAPSHOT
             </Typography>
             <StrategySnapshot />
 
+            <br />
             <Typography variant='h6' color="text.primary">
               VAULT PERFORMANCE
             </Typography>
