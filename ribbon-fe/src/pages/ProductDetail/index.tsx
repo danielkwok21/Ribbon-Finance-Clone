@@ -20,6 +20,7 @@ import Button from '@mui/material/Button';
 import { getProductActivitiesByName, getProductDetailByName } from '../../services/api';
 import VaultPerformance from './VaultPerformance';
 import WalletAction from './WalletAction';
+import StrategySnapshot from './StrategySnapshot';
 
 export default function ProductDetail() {
   const [productDetail, setProductDetail] = useState<GetProductDetailDTO | undefined>()
@@ -206,9 +207,15 @@ export default function ProductDetail() {
             <Typography variant='h6' color="text.primary">
               VAULT STRATEGY
             </Typography>
+            <Typography
+              sx={{ fontSize: 10 }} color="text.secondary"
+              dangerouslySetInnerHTML={{ __html: productDetail?.productInformation?.strategy || "" }}
+            >
+            </Typography>
             <Typography variant='h6' color="text.primary">
               WEEKLY STRATEGY SNAPSHOT
             </Typography>
+            <StrategySnapshot />
 
             <Typography variant='h6' color="text.primary">
               VAULT PERFORMANCE

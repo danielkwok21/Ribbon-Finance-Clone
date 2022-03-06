@@ -38,13 +38,8 @@ export default function Dashboard() {
   const sort_by = urlParams.get('sort_by')
 
 
-  console.log(strategy, deposit_asset, sort_by)
-
   return (
-    <div className='page' style={{ flexDirection: 'column' }}>
-
-
-
+    <div className='page' style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
       <div
         className='selector-container'
       >
@@ -87,7 +82,6 @@ export default function Dashboard() {
           </Select>
         </FormControl>
 
-
         <FormControl fullWidth>
           <InputLabel id="sort-by-label">Sort By</InputLabel>
           <Select
@@ -106,10 +100,7 @@ export default function Dashboard() {
             <MenuItem value={'OLDEST FIRST'}>OLDEST FIRST</MenuItem>
           </Select>
         </FormControl>
-
       </div>
-
-
 
       <div className='card-container'>
 

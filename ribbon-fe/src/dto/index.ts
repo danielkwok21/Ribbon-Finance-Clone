@@ -1,5 +1,5 @@
 import {
-    Product, ProductInformation, Deposit,ProductActivity
+    Product, ProductInformation, Deposit, ProductActivity
 } from '../types'
 
 export type ProductDTO = {
@@ -25,7 +25,7 @@ export type ProductDTO = {
 
 export type GetProductsDTO = {
     status: boolean,
-    products?:  ProductDTO[],
+    products?: ProductDTO[],
     message?: string,
 }
 
@@ -57,7 +57,7 @@ export type GetProductActivity = {
     updatedAt: number,
 
     yield_string: string,
-    yield_dollar_string:string,
+    yield_dollar_string: string,
 
 }
 
@@ -72,5 +72,35 @@ export type MarketChartDTO = {
         price: number,
         date: number,
     }[]
-  }
-  
+}
+
+
+export type GetStrategySnapshot = {
+
+    /**
+     * 6/3/2022 daniel.kwok
+     * Copied statically from StrategySnapshot
+     * plus some massaged fields
+     */
+    id: number,
+    product_id: number,
+    range: string,
+    current_price_dollar: number,
+    strike_price_dollar: number,
+    performance: number,
+    time_to_expiry: number,
+    createdAt: number,
+    updatedAt: number,
+
+    time_to_expiry_string: string,
+    performance_string: string,
+    current_price_dollar_string: string,
+    strike_price_dollar_string: string,
+
+}
+
+export type GetStrategySnapshotDTO = {
+    status: boolean,
+    strategySnapshot?: GetStrategySnapshot,
+    message?: string,
+}

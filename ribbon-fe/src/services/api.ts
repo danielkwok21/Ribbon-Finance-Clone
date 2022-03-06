@@ -2,7 +2,8 @@ import {
     GetProductDetailDTO,
     GetProductsDTO,
     GetProductActivitiesDTO,
-    MarketChartDTO
+    MarketChartDTO,
+    GetStrategySnapshotDTO
 } from '../dto'
 
 const root = `http://localhost:5000`
@@ -20,6 +21,12 @@ export const getProductDetailByName = (name: string): Promise<GetProductDetailDT
 
 export const getProductActivitiesByName = (name: string): Promise<GetProductActivitiesDTO> => {
     return fetch(`${root}/product/activities/${name}`)
+        .then(res => res.json())
+}
+
+
+export const getStrategySnapshotByName = (name: string): Promise<GetStrategySnapshotDTO> => {
+    return fetch(`${root}/product/strategysnapshot/${name}`)
         .then(res => res.json())
 }
 
