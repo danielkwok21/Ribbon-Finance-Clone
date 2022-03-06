@@ -20,6 +20,15 @@ function App() {
   const theme = createTheme({
     palette: {
       mode: 'dark',
+      common: {
+        black: '#121218',
+      },
+      primary: {
+        main: '#fff'
+      },
+      secondary: {
+        main: '#999999'
+      }
     },
     typography: {
       fontFamily: [
