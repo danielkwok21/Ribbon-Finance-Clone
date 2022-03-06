@@ -19,6 +19,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { getProductActivitiesByName, getProductDetailByName } from '../../services/api';
 import VaultPerformance from './VaultPerformance';
+import WalletAction from './WalletAction';
 
 export default function ProductDetail() {
   const [productDetail, setProductDetail] = useState<GetProductDetailDTO | undefined>()
@@ -255,150 +256,9 @@ export default function ProductDetail() {
           <div
             style={{ flex: 3, display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'column', gap: 30, marginLeft: 40, marginRight: 40 }}
           >
-            <Card
-              raised={true}
-              sx={{
-                minWidth: 300, height: '40%'
-              }}
-            >
-
-              <CardContent sx={{ backgroundColor: '#121218' }} style={{ position: 'relative' }}>
-                <Tabs
-                  indicatorColor='primary'
-                  variant="fullWidth" value={tabIndex} onChange={(_, v) => { setTabIndex(v) }}>
-                  <Tab value={1} label="DEPOSIT" />
-                  <Tab value={2} label="WITHDRAW" />
-                </Tabs>
-                {
-                  tabIndex === 1 ?
-                    (
-                      <div style={{ display: 'flex', gap: 20, flexDirection: 'column', margin: 10 }}>
-
-                        <div>
-                          <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                            {`AMOUNT (${productDetail?.product?.symbol})`}
-                          </Typography>
-
-                          <TextField placeholder='0' fullWidth />
-                        </div>
-
-                        <div
-                          style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}
-                        >
-                          <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                            Wallet Balance
-                          </Typography>
-                          <Typography sx={{ fontSize: 15 }} color="text.primary">
-                            0 {productDetail?.product?.symbol}
-                          </Typography>
-                        </div>
-
-                        <Button
-                          style={{
-                            backgroundColor: '#122125',
-                            color: '#16ceb9',
-                            height:60,
-                          }}
-                          fullWidth variant="contained">
-                          CONNECT WALLET
-                        </Button>
-                        <Box>
-                          <p style={{ fontSize: 12, color: '#14F195' }} >
-                            Your deposit will be deployed in the vault's weekly strategy on Friday at 11am UTC
-                          </p>
-
-                        </Box>
-                      </div>
-                    ) :
-                    tabIndex === 2 ?
-                      (
-                        <div style={{ display: 'flex', gap: 20, flexDirection: 'column', margin: 10 }}>
-
-                          <div>
-                            <Button
-                              style={{
-                                border: '1px solid #16ceb9',
-                                width: '50%',
-                                borderRadius: 10,
-                              }}
-                              disabled
-                              variant="contained">
-                              STANDARD
-                            </Button>
-                            <Button
-                              style={{
-                                width: '50%',
-                                borderRadius: 10,
-                              }}
-                              disabled
-                              variant="contained">
-                              INSTANT
-                            </Button>
-                          </div>
-                          <div>
-
-                            <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                              {`AMOUNT (${productDetail?.product?.symbol})`}
-                            </Typography>
-
-                            <TextField placeholder='0' fullWidth />
-                          </div>
-
-                          <div
-                            style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}
-                          >
-                            <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                              Available Limit
-                            </Typography>
-                            <Typography sx={{ fontSize: 15 }} color="text.primary">
-                              0 {productDetail?.product?.symbol}
-                            </Typography>
-                          </div>
-
-                          <div
-                            style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}
-                          >
-                            <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                              Initiated Withdrawals
-                            </Typography>
-                            <Typography sx={{ fontSize: 15 }} color="text.primary">
-                              0 {productDetail?.product?.symbol}
-                            </Typography>
-                          </div>
-                          <Button
-                            style={{
-                              backgroundColor: '#122125',
-                              color: '#16ceb9',
-                              height:60,
-                            }}
-                            fullWidth variant="contained">
-                            CONNECT WALLET
-                          </Button>
-                          <Box>
-                            <p style={{ fontSize: 12, color: '#14F195' }} >
-                              Your deposit will be deployed in the vault's weekly strategy on Friday at 11am UTC
-                            </p>
-
-                          </Box>
-                        </div>
-                      ) : null
-                }
-              </CardContent>
-
-            </Card>
-
-
-            <Button
-              style={{
-                borderRadius: 20,
-                backgroundColor: '#122125',
-                color: '#14F195'
-              }}
-              href='#'
-              fullWidth
-              variant="contained">
-              CONTRACT 2YNJ4E...QMKW <OpenInNewIcon sx={{ fontSize: 20, marginLeft: 1 }} />
-            </Button>
+            <WalletAction
+              productDetail={productDetail}
+            />
           </div>
 
         </div>
@@ -475,4 +335,13 @@ export default function ProductDetail() {
       </div>
     </div >
   )
+}
+
+
+const styles = {
+  connectWalletButton: {
+    backgroundColor: '#122125',
+    color: '#16ceb9',
+    height: 60
+  }
 }

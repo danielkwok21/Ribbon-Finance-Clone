@@ -97,7 +97,9 @@ export default function VaultPerformance() {
 
     return (
         <div style={{ margin: 10 }}>
-            <canvas id="myChart" width="100%" height="50px"></canvas>
+            <canvas id="myChart" width="100%" height="50px"
+                style={{ maxWidth: window.innerWidth * 0.5 }}
+            ></canvas>
 
         </div>
     )
