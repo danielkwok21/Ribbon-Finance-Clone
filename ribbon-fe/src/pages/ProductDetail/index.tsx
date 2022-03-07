@@ -118,9 +118,6 @@ export default function ProductDetail() {
   ]
 
   const urlParams = new URLSearchParams(window.location.search)
-  const strategy = urlParams.get('strategy')
-  const deposit_asset = urlParams.get('deposit_asset')
-  const sort_by = urlParams.get('sort_by')
 
   const progressValue = (productDetail?.deposit?.current_deposit || 0) / (productDetail?.deposit?.max_deposit || 0) * 100
 
@@ -186,21 +183,16 @@ export default function ProductDetail() {
       </div>
 
       <div
-        className='page'
-        style={{
-          justifyContent: 'flex-start',
-          flexDirection: 'column'
-        }}
+        className='product-container'
       >
         <div
           style={{
             display: 'flex',
             flexDirection: 'row'
-
           }}
         >
           <div
-            style={{ flex: 3,}}
+            className='product-left-container'
           >
 
             <Typography variant='h6' color="text.primary">
@@ -263,7 +255,7 @@ export default function ProductDetail() {
           </div>
 
           <div
-            style={{ flex: 3, display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'column', gap: 30, marginLeft: 40, marginRight: 40 }}
+            className='product-right-container'
           >
             <WalletAction
               productDetail={productDetail}
