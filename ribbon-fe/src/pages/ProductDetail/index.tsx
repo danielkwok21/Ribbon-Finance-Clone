@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { GetProductActivitiesDTO, GetProductActivity, GetProductDetailDTO, GetProductsDTO, ProductDTO } from '../../dto'
 import { Product, ProductActivity, ProductInformation } from '../../types'
-import './index.css'
 import Typography from '@mui/material/Typography';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';

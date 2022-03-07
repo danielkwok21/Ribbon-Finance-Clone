@@ -27,3 +27,11 @@ a {
 #connect-wallet-link:hover {
     color: rgba(22, 206, 185, 0.281)
 }
+
+
+
+@media only screen and (max-width: 900px) {
+    .footer {
+        display: none
+    }   
+}

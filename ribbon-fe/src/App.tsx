@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import Dashboard from './pages/Dashboard';
 import ProductDetail from './pages/ProductDetail';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles'
