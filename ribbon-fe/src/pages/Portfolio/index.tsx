@@ -16,17 +16,17 @@ export default function Dashboard() {
 
     useEffect(() => {
         getProducts()
-        .then(res => {
-            if(res.status !== true) throw res.message
-            setProducts(res.products || [])
-        })
-        .catch((err:string) => {
-            console.error(err)
-        })
+            .then(res => {
+                if (res.status !== true) throw res.message
+                setProducts(res.products || [])
+            })
+            .catch((err: string) => {
+                console.error(err)
+            })
     }, [])
 
     return (
-        <div className='page' style={{ flexDirection: 'column', alignItems: 'center' }}>
+        <div className='page' style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', }}>
 
             <div
                 style={{
@@ -34,7 +34,8 @@ export default function Dashboard() {
                     justifyContent: 'center',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    width: '70%'
+                    width: '100%',
+                    maxWidth: 500,
                 }}
             >
 
@@ -196,24 +197,25 @@ export default function Dashboard() {
                         flexDirection: 'column',
                         justifyContent: 'flex-start',
                         alignItems: 'flex-start',
-                        width: '100%'
+                        width: '100%',
                     }}
                 >
                     <div
-                        style={{ marginTop: 50 }}
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            width: '100%',
+                            flexWrap: 'wrap'
+                        }}
                     >
-                        <div
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'row'
-                            }}
-                        >
 
-                            <Typography variant='h6' color="text.primary" gutterBottom>
-                                TRANSACTION HISTORY
-                            </Typography>
+                        <Typography variant='h6' color="text.primary" gutterBottom>
+                            TRANSACTION HISTORY
+                        </Typography>
 
-                            <FormControl style={{ width: 200, marginLeft: 10 }} size='small'>
+                        <div>
+
+                            <FormControl style={{ width: '50%', maxWidth: 160, }} size='small'>
                                 <InputLabel id="strategy-label">ALL ACTIVITY</InputLabel>
                                 <Select
                                     style={{ maxWidth: 200 }}
@@ -232,7 +234,7 @@ export default function Dashboard() {
                                 </Select>
                             </FormControl>
 
-                            <FormControl style={{ width: 200, marginLeft: 10 }} size='small'>
+                            <FormControl style={{ width: '50%', maxWidth: 160, marginLeft: 10 }} size='small'>
                                 <InputLabel id="deposit-asset-label">LATEST FIRST</InputLabel>
                                 <Select
                                     style={{ maxWidth: 200 }}
@@ -252,12 +254,11 @@ export default function Dashboard() {
                                 </Select>
                             </FormControl>
                         </div>
-
-                        <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                            _ _ _
-                        </Typography>
-
                     </div>
+
+                    <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                        _ _ _
+                    </Typography>
                 </div>
             </div>
         </div >
