@@ -11,20 +11,12 @@ export default function Header() {
         <div
             className='header'
         >
-            <div style={{ width: '20%', textAlign: 'center' }}>
+            <div className='header-left-container'>
                 <a  onClick={() => navigate('/')}>
                     <HomeIcon fontSize="large" style={{ color: 'white' }} />
                 </a>
             </div>
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    gap: 20,
-                    width: '60%',
-                    justifyContent: 'center',
-                }}
-            >
+            <div className='header-center-container'>
                 <a  onClick={() => navigate('/')}>
 
                     <Typography className='path-link' variant="subtitle1" color={window.location.pathname === '/' ? "text.primary" : "text.secondary"}>
@@ -38,10 +30,8 @@ export default function Header() {
                 </a>
             </div>
 
-            <div style={{ width: '20%', textAlign: 'center' }}>
-                <a
-                    
-                >
+            <div className='header-right-container'>
+                <a>
                     <Typography variant="subtitle1" id='connect-wallet-link'>
                         CONNECT WALLET
                     </Typography>

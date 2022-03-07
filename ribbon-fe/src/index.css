@@ -25,10 +25,9 @@ body {
 
 .card-container {
   display: flex;
-  justify-content: center;
-  gap: 30px;
+  justify-content: space-around;
+  row-gap: 20px;
   width: 100%;
-  height: 600px;
   flex-wrap: wrap;
 }
 
@@ -53,16 +52,6 @@ body {
   box-shadow: 0px 0px 5px 2px white;
   overflow:hidden;
   transition: 0.2s ease;
-}
-
-
-@media only screen and (max-width: 900px) {
-  
-  .selector-container {
-    width: 100%;
-    flex-direction: column;
-  }
-
 }
 
 #product-header-container {
@@ -107,12 +96,6 @@ body {
   flex:3;
 }
 
-@media only screen and (max-width: 900px) {
-  #product-header-right {
-      flex: 0;
-  }
-}
-
 .header {
   background-color: #15171a;
   height: 70px;
@@ -124,6 +107,24 @@ body {
 a {
   text-decoration: none;
   cursor: pointer;
+}
+
+.header-left-container {
+  width: 20%;
+  text-align: center;
+}
+
+.header-right-container {
+  width: 20%;
+  text-align: center;
+}
+
+.header-center-container {
+  display:flex;
+  flex-direction: row;
+  gap:20px;
+  width:60%;
+  justify-content: center;
 }
 
 .path-link:hover{
@@ -151,8 +152,35 @@ a {
   z-index: 99;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 400px) {
+  
+  .selector-container {
+    width: 100%;
+    flex-direction: column;
+  }
+
   .footer {
-      display: none
+    display: none
   }   
+
+  #product-header-right {
+    flex: 0;
+  }
+
+  .header-right-container {
+    position: fixed;
+    bottom: 0px;
+    left: 5%;
+    width: 90%;
+    background-color: #030309;
+    height: 80px;
+    opacity: 1;
+    z-index:99;
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
 }
