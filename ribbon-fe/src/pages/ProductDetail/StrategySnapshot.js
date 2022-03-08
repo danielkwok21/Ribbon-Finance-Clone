@@ -99,7 +99,6 @@ export default function StrategySnapshot() {
     return (
         <div style={{ margin: 10 }}>
             <canvas id="vault-performance-chart-id" width="100%" height="50px"
-                style={{ maxWidth: window.innerWidth * 0.5 }}
             >
 
             </canvas>

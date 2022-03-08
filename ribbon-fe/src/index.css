@@ -158,7 +158,6 @@ a {
   justify-content: flex-start;
   flex-direction: column;
   margin: 20px;
-  background-color: red;
 }
 
 .product-left-container {
@@ -210,7 +209,7 @@ a {
 
 
   .product-right-container {
-    flex: 6;
+    display:none
   }
 
 }

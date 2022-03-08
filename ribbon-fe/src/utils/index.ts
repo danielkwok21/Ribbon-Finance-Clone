@@ -26,3 +26,9 @@ export function getDurationInDaysAgo(startTime: number): string {
         return `${days} days ago`
     }
 }
+
+export function getIsMobile():boolean {
+    const minInnerWidth = 400 // 8.3.2022 daniel.kwok from index.css @media
+    return window.innerWidth < minInnerWidth
+
+}

@@ -20,6 +20,10 @@ import { getProductActivitiesByName, getProductDetailByName } from '../../servic
 import VaultPerformance from './VaultPerformance';
 import WalletAction from './WalletAction';
 import StrategySnapshot from './StrategySnapshot';
+import {
+  getIsMobile
+} from '../../utils'
+import VaultActivity from './VaultActivity';
 
 export default function ProductDetail() {
   const [productDetail, setProductDetail] = useState<GetProductDetailDTO | undefined>()
@@ -117,7 +121,6 @@ export default function ProductDetail() {
     },
   ]
 
-  const urlParams = new URLSearchParams(window.location.search)
 
   const progressValue = (productDetail?.deposit?.current_deposit || 0) / (productDetail?.deposit?.max_deposit || 0) * 100
 
@@ -276,61 +279,9 @@ export default function ProductDetail() {
           <div
             style={{ marginTop: 50, width: '100%' }}
           >
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                marginBottom: 20,
-              }}
-            >
-
-              <Typography
-                variant='h6' color="text.primary" gutterBottom>
-                VAULT ACTIVITY
-              </Typography>
-
-              <FormControl style={{ width: 200, marginLeft: 10 }} size='small'>
-                <InputLabel id="strategy-label">ALL ACTIVITY</InputLabel>
-                <Select
-                  style={{ maxWidth: 200 }}
-                  labelId="strategy-label"
-                  value=''
-                  onChange={e => {
-                    const strategy: string = typeof e.target.value === 'string' ? e.target.value : ''
-                    const searchParams = new URLSearchParams(window.location.search)
-                    searchParams.set('strategy', strategy)
-
-                    navigate(`?${searchParams.toString()}`)
-                  }}
-                >
-                  <MenuItem value={'COVERED-CALL'}>COVERED-CALL</MenuItem>
-                  <MenuItem value={'PUT-SELLING'}>PUT-SELLING</MenuItem>
-                </Select>
-              </FormControl>
-
-              <FormControl style={{ width: 200, marginLeft: 10 }} size='small'>
-                <InputLabel id="deposit-asset-label">LATEST FIRST</InputLabel>
-                <Select
-                  style={{ maxWidth: 200 }}
-                  labelId="deposit-asset-label"
-                  value=''
-                  onChange={e => {
-                    const strategy: string = typeof e.target.value === 'string' ? e.target.value : ''
-                    const searchParams = new URLSearchParams(window.location.search)
-                    searchParams.set('deposit_asset', strategy)
-
-                    navigate(`?${searchParams.toString()}`)
-                  }}
-                >
-                  <MenuItem value={'AAVE'}>AAVE</MenuItem>
-                  <MenuItem value={'ETH'}>ETH</MenuItem>
-                  <MenuItem value={'USDC'}>USDC</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
-            <div style={{ height: 300, width: '100%' }}>
-              <DataGrid rows={rows} columns={columns} />
-            </div>
+            <VaultActivity
+              productDetail={productDetail}
+            />
           </div>
         </div>
       </div>

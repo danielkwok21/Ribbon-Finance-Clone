@@ -37,6 +37,11 @@ export type GetProductDetailDTO = {
     deposit?: Deposit,
 }
 
+export enum ProductActivityAction {
+    SOLD = 'SOLD',
+    MINTED = 'MINTED',
+}
+
 export type GetProductActivity = {
 
     /**
@@ -47,7 +52,7 @@ export type GetProductActivity = {
 
     id: number,
     product_id: number,
-    action: string,
+    action: ProductActivityAction,
     contract: string,
     strike_price: number,
     quantity: number,

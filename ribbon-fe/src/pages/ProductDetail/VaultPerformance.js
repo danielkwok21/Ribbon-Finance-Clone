@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
-import { Chart, registerables } from 'chart.js'
 import Typography from '@mui/material/Typography';
-import { getCoinGeckoMarketChart } from '../../services/api'
+import { Chart, registerables } from 'chart.js';
+import React, { useEffect } from 'react';
+import { getCoinGeckoMarketChart } from '../../services/api';
 
 const GRADIENT_COLOR = '#122c2e'
 const CONTRAST_COLOR = '#13a696'
@@ -101,9 +101,7 @@ export default function VaultPerformance() {
 
     return (
         <div style={{ margin: 10 }}>
-            <canvas id="myChart" width="100%" height="50px"
-                style={{ maxWidth: window.innerWidth * 0.5 }}
-            ></canvas>
+            <canvas id="myChart" width="100%" height="50px"></canvas>
 
             <div
                 className='strategy-snapshot-container'
