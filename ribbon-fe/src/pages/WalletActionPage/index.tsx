@@ -1,28 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { GetProductActivitiesDTO, GetProductActivity, GetProductDetailDTO, GetProductsDTO, ProductDTO } from '../../dto'
 import Typography from '@mui/material/Typography';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Avatar, LinearProgress, Select, Tab, Tabs, Box } from '@mui/material';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { useNavigate, useParams } from 'react-router-dom'
-import { formatNumber, getDurationInDaysAgo } from '../../utils'
-import { DataGrid, GridRowsProp, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { getProductActivitiesByName, getProductDetailByName } from '../../services/api';
-import VaultPerformance from './VaultPerformance';
 
 interface WalletActionProps {
     productDetail?: GetProductDetailDTO,
 }
 
-export default function WalletAction(props: WalletActionProps) {
+export default function WalletActionPage(props: WalletActionProps) {
     const [tabIndex, setTabIndex] = useState(1)
 
     useEffect(() => {

@@ -49,79 +49,6 @@ export default function ProductDetail() {
       })
   }, [])
 
-
-  const rows: GridRowsProp = productActivities
-
-  const columns: GridColDef[] = [
-    {
-      field: 'action', headerName: 'Action', flex: 1,
-      renderCell: (params: GridRenderCellParams) => {
-        const productActivity: ProductActivity = params.row
-        const dateBetween = getDurationInDaysAgo(productActivity.updatedAt)
-
-        return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 10 }}>
-          {
-            params.value === 'SOLD CONTRACTS' ?
-              <AttachMoneyIcon color='primary' />
-              :
-              <AutoAwesomeMotionIcon color='secondary' />
-          }
-          <div>
-
-            <Typography style={{ fontSize: 12 }} display="block" color='text.primary'>
-              {params.value}
-            </Typography>
-
-            <Typography style={{ fontSize: 10 }} display="block" color='text.secondary'>
-              {dateBetween}
-            </Typography>
-          </div>
-        </div>
-      }
-    },
-    {
-      field: 'contract', headerName: 'Contract', flex: 1,
-      renderCell: (params: GridRenderCellParams) => {
-        const productActivity: ProductActivity = params.row
-
-        return <div>
-          <Typography style={{ fontSize: 12 }} display="block" color='text.primary'>
-            {params.value}
-          </Typography>
-
-          <Typography style={{ fontSize: 10 }} display="block" color='text.secondary'>
-            Strike {productActivity.strike_price}
-          </Typography>
-        </div>
-      }
-    },
-    {
-      field: 'quantity', headerName: 'Quantity', flex: 1,
-    },
-    {
-      field: '', headerName: 'Yield', flex: 1,
-      renderCell: (params: GridRenderCellParams) => {
-        const productActivity: GetProductActivity = params.row
-
-        return <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }} >
-          <div>
-            <Typography style={{ fontSize: 12 }} display="block" color='rgb(22, 206, 185)'>
-              {productActivity.yield_string}
-            </Typography>
-
-            <Typography style={{ fontSize: 10 }} display="block" color='text.secondary'>
-              {productActivity.yield_dollar_string}
-            </Typography>
-          </div>
-          <a href='#'>
-            <OpenInNewIcon fontSize='small' color='disabled' />
-          </a>
-        </div>
-      }
-    },
-  ]
-
-
   const progressValue = (productDetail?.deposit?.current_deposit || 0) / (productDetail?.deposit?.max_deposit || 0) * 100
 
   const formattedCurrentDeposit = formatNumber(productDetail?.deposit?.current_deposit || 0)
@@ -148,16 +75,15 @@ export default function ProductDetail() {
             <Typography sx={{ fontSize: 15 }} color="text.primary">
               {productDetail?.product?.strategy}
             </Typography>
-            <Typography sx={{ fontSize: 30 }} color="text.primary" gutterBottom>
+            <Typography sx={{ fontSize: '3em' }} color="text.primary" gutterBottom>
               {productDetail?.product?.name}
             </Typography>
 
-            <br />
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Typography variant='h6' color="text.secondary" gutterBottom>
+              <Typography sx={{ fontSize: '1em' }} color="text.secondary" gutterBottom>
                 {`Current Vault Deposits`}
               </Typography>
-              <Typography variant='h6' color="text.primary" gutterBottom>
+              <Typography sx={{ fontSize: '1em' }} color="text.primary" gutterBottom>
                 {formattedCurrentDeposit} {productDetail?.product?.symbol}
               </Typography>
             </div>
@@ -165,10 +91,10 @@ export default function ProductDetail() {
             <LinearProgress color='primary' variant="determinate" value={progressValue} />
 
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Typography variant='h6' color="text.secondary" gutterBottom>
+              <Typography sx={{ fontSize: '1em' }} color="text.secondary" gutterBottom>
                 {`Max Vault Capacity`}
               </Typography>
-              <Typography variant='h6' color="text.primary" gutterBottom>
+              <Typography sx={{ fontSize: '1em' }} color="text.primary" gutterBottom>
                 {formattedMaxDeposit} {productDetail?.product?.symbol}
               </Typography>
             </div>

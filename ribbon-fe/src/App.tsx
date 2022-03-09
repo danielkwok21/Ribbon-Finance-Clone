@@ -1,6 +1,6 @@
 import React from 'react';
-import Dashboard from './pages/Dashboard';
-import ProductDetail from './pages/ProductDetail';
+import Dashboard from './pages/DashboardPage';
+import ProductDetail from './pages/ProductDetailPage';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles'
 import Header from './components/Header';
 import Footer from './components/Footer'
@@ -12,7 +12,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Portfolio from './pages/Portfolio';
+import Portfolio from './pages/PortfolioPage';
+import WalletActionPage from './pages/WalletActionPage'
 
 function App() {
 

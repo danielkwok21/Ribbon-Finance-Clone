@@ -2,10 +2,12 @@ import React from 'react'
 import Typography from '@mui/material/Typography';
 import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from 'react-router-dom';
+import { getIsMobile } from '../../utils';
 
 export default function Header() {
 
     const navigate = useNavigate()
+    const isMobile = getIsMobile()
 
     return (
         <div
