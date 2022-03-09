@@ -1,0 +1,17 @@
+version: '3'
+services:
+  ribbon-fe:
+    build: ./ribbon-fe
+    ports:
+      - "3000:3000" # Bind port 3000 of host to 3000 of container
+    container_name: ribbon-fe-docker
+    restart: always 
+    links:
+      - ribbon-be  
+
+  ribbon-be:
+    build: ./ribbon-be
+    ports:
+      - "5000:5000"
+    container_name: ribbon-be-docker
+    restart: always
