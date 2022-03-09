@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { GetProductActivitiesDTO, GetProductActivity, GetProductDetailDTO, GetProductsDTO, ProductActivityAction, ProductDTO } from '../../dto'
-import { Product, ProductActivity, ProductInformation } from '../../types'
-import Typography from '@mui/material/Typography';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { Avatar, LinearProgress, Select, Tab, Tabs, Box } from '@mui/material';
+import { Select } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import { useNavigate, useParams } from 'react-router-dom'
-import { formatNumber, getDurationInDaysAgo } from '../../utils'
-import { DataGrid, GridRowsProp, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import Typography from '@mui/material/Typography';
+import { DataGrid, GridColDef, GridRenderCellParams, GridRowsProp } from '@mui/x-data-grid';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getProductActivitiesByName } from '../../services/api';
+import { GetProductActivitiesDTO, ProductActivity, GetProductDetailDTO, ProductActivityAction } from '../../types';
+import { getDurationInDaysAgo, getIsMobile } from '../../utils';
 
-import { getProductActivitiesByName, getProductDetailByName } from '../../services/api';
 
-import {
-  getIsMobile
-} from '../../utils'
 
 interface VaultActivityProps {
   productDetail: GetProductDetailDTO | undefined
@@ -25,7 +21,7 @@ interface VaultActivityProps {
 
 export default function VaultActivity(props: VaultActivityProps) {
   const productDetail = props.productDetail
-  const [productActivities, setProductActivities] = useState<GetProductActivity[] | []>([])
+  const [productActivities, setProductActivities] = useState<ProductActivity[] | []>([])
   const [tabIndex, setTabIndex] = useState(1)
   const navigate = useNavigate()
   const params = useParams()
@@ -53,7 +49,6 @@ export default function VaultActivity(props: VaultActivityProps) {
   .filter(pa => {
     if (!action) return true
     if (action === 'ALL ACTIVITY') return true
-    console.log(pa.action, action)
     return pa.action === action
   })
   .sort((a, b) => {
@@ -117,7 +112,7 @@ export default function VaultActivity(props: VaultActivityProps) {
     {
       field: '', headerName: 'Yield', flex: 1,
       renderCell: (params: GridRenderCellParams) => {
-        const productActivity: GetProductActivity = params.row
+        const productActivity: ProductActivity = params.row
 
         return <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }} >
           <div>
@@ -208,7 +203,8 @@ export default function VaultActivity(props: VaultActivityProps) {
                     key={pa.id}
                     style={{
                       backgroundColor: '#121218',
-                      margin: 10
+                      padding: 10,
+                      margin: 10,
                     }}
                   >
                     <Typography color='text.primary'>

@@ -5,7 +5,7 @@ import { getCoinGeckoMarketChart, getStrategySnapshotByName } from '../../servic
 import {
     GetProductDetailDTO,
     GetStrategySnapshotDTO
-} from '../../dto'
+} from '../../types'
 import { useParams } from 'react-router-dom'
 
 

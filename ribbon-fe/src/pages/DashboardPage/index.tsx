@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { GetProductDetailDTO, GetProductsDTO, ProductDTO } from '../../dto'
+import { Product } from '../../types'
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -13,7 +13,7 @@ import { formatNumber } from '../../utils'
 import { getProducts } from '../../services/api';
 
 export default function Dashboard() {
-  const [products, setProducts] = useState<ProductDTO[] | []>([])
+  const [products, setProducts] = useState<Product[] | []>([])
   const navigate = useNavigate()
 
   useEffect(() => {

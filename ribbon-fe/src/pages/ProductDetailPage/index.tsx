@@ -1,29 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { GetProductActivitiesDTO, GetProductActivity, GetProductDetailDTO, GetProductsDTO, ProductDTO } from '../../dto'
-import { Product, ProductActivity, ProductInformation } from '../../types'
-import Typography from '@mui/material/Typography';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { Avatar, LinearProgress, Select, Tab, Tabs, Box } from '@mui/material';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import { useNavigate, useParams } from 'react-router-dom'
-import { formatNumber, getDurationInDaysAgo } from '../../utils'
-import { DataGrid, GridRowsProp, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import TextField from '@mui/material/TextField';
+import { LinearProgress } from '@mui/material';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getProductActivitiesByName, getProductDetailByName } from '../../services/api';
+import { GetProductActivitiesDTO, GetProductDetailDTO, ProductActivity } from '../../types';
+import { formatNumber, getIsMobile } from '../../utils';
+import StrategySnapshot from './StrategySnapshot';
+import VaultActivity from './VaultActivity';
 import VaultPerformance from './VaultPerformance';
 import WalletAction from './WalletAction';
-import StrategySnapshot from './StrategySnapshot';
-import {
-  getIsMobile
-} from '../../utils'
-import VaultActivity from './VaultActivity';
 
 export default function ProductDetail() {
   const [productDetail, setProductDetail] = useState<GetProductDetailDTO | undefined>()
@@ -128,7 +115,7 @@ export default function ProductDetail() {
               }}
               href='#'
               variant="contained">
-              CONTRACT 2YNJ4E...QMKW <OpenInNewIcon sx={{ fontSize: 20, marginLeft: 1 }} />
+              CONTRACT {productDetail?.product?.contract_address_string} <OpenInNewIcon sx={{ fontSize: 20, marginLeft: 1 }} />
             </Button>
           ) : null
         }
@@ -232,13 +219,4 @@ export default function ProductDetail() {
       </div>
     </div >
   )
-}
-
-
-const styles = {
-  connectWalletButton: {
-    backgroundColor: '#122125',
-    color: '#16ceb9',
-    height: 60
-  }
 }

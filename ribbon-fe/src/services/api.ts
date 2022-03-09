@@ -2,9 +2,8 @@ import {
     GetProductDetailDTO,
     GetProductsDTO,
     GetProductActivitiesDTO,
-    MarketChartDTO,
     GetStrategySnapshotDTO
-} from '../dto'
+} from '../types'
 
 const root = `http://localhost:5000`
 const coingeckoRoot = `https://api.coingecko.com/api/v3`
@@ -48,15 +47,15 @@ export const getCoinGeckoMarketChart = (coinName: string, currency: string = "us
         .then(res => res.json())
         .then(res => {
             /**transform into usable format */
-            const result: MarketChartDTO = {
+            const result: any = {
                 prices: res.prices.map((p: number[]) => {
                     return {
                         date: p[0],
                         price: p[1],
                     }
                 })
-            }
+        }
 
             return result
-        })
+})
 }
