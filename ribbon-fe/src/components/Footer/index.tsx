@@ -3,6 +3,7 @@ import Fade from '@mui/material/Fade';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import WalletAction from '../../pages/ProductDetailPage/WalletAction';
 import { getIsMobile } from '../../utils';
 
@@ -10,11 +11,12 @@ import { getIsMobile } from '../../utils';
 export default function Footer() {
 
     const [open, setOpen] = React.useState(false);
+    const location = useLocation()
 
     const isMobile = getIsMobile()
 
     /**Show diff footer if it's in product page */
-    const isProductPage = window.location.pathname.includes('product')
+    const isProductPage = location.pathname.includes('product')
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);

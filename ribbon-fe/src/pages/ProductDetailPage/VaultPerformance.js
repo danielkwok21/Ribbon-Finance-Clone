@@ -1,17 +1,36 @@
 import Typography from '@mui/material/Typography';
 import { Chart, registerables } from 'chart.js';
-import React, { useEffect } from 'react';
-import { getCoinGeckoMarketChart } from '../../services/api';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getCoinGeckoMarketChart, getProductDetailByName } from '../../services/api';
 
 const GRADIENT_COLOR = '#122c2e'
 const CONTRAST_COLOR = '#13a696'
 
-export default function VaultPerformance() {
+export default function VaultPerformance(props) {
+    const params = useParams()
+    const [productDetail, setProductDetail] = useState({})
+    const [isLoading, setIsLoading] = useState(false)
+
+
+    useEffect(() => {
+        if (props.productDetail) {
+            setProductDetail(props.productDetail)
+        } else {
+            setIsLoading(true)
+            getProductDetailByName(params.name || '')
+                .then(res => {
+                    setProductDetail(res)
+                })
+                .finally(() => setIsLoading(false))
+        }
+    }, [props.productDetail])
 
 
     useEffect(async () => {
+        if (!productDetail) return null
 
-        const el = document.getElementById('myChart')
+        const el = document.getElementById('vault-chart-id')
         if (!el) return null
 
         getCoinGeckoMarketChart('solana', 'usd', 365, 'daily')
@@ -88,7 +107,7 @@ export default function VaultPerformance() {
                         }
                     }
                 };
-                const myChart = new Chart(
+                const chart= new Chart(
                     el,
                     config
                 );
@@ -97,11 +116,11 @@ export default function VaultPerformance() {
         return () => {
             el?.remove()
         }
-    }, [])
+    }, [productDetail])
 
     return (
         <div style={{ margin: 10 }}>
-            <canvas id="myChart" width="100%" height="50px"></canvas>
+            <canvas id="vault-chart-id" width="100%" height="50px"></canvas>
 
             <div
                 className='strategy-snapshot-container'
@@ -111,15 +130,15 @@ export default function VaultPerformance() {
                         Projected Yield
                     </Typography>
                     <Typography style={{ fontSize: 15 }} color={CONTRAST_COLOR}>
-                        {/* TODO insert projected yield */}
+                        {productDetail?.product?.apy_string}
                     </Typography>
                 </div>
                 <div className='strategy-snapshot-details-container'>
                     <Typography style={{ fontSize: 12 }} color='text.secondary'>
                         Previous Week Performance
                     </Typography>
-                    <Typography style={{ fontSize: 15 }} color='text.primary'>
-                        {/* TODO insert prev week perf */}
+                    <Typography style={{ fontSize: 15 }} color={CONTRAST_COLOR}>
+                    {productDetail?.product?.prev_apy_string}
                     </Typography>
                 </div>
             </div>

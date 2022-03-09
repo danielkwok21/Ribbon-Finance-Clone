@@ -177,8 +177,9 @@ a {
   .header {
     position: sticky;
     top:0;
-    height: '100%'
-
+    opacity: 1;
+    background: #030309;
+    z-index: 99;
   }
   
   .selector-container {

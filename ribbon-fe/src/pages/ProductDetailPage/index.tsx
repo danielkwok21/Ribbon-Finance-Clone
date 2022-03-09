@@ -61,7 +61,7 @@ export default function ProductDetail() {
         >
           <div id='product-header-left'>
 
-            <Typography sx={{ fontSize: 15 }} color="text.primary">
+            <Typography sx={{ fontSize: 12 }} color="text.primary">
               {productDetail?.product?.strategy}
             </Typography>
             <Typography sx={{ fontSize: '3em' }} color="text.primary" gutterBottom>
@@ -134,7 +134,7 @@ export default function ProductDetail() {
               VAULT STRATEGY
             </Typography>
             <Typography
-              sx={{ fontSize: 10 }} color="text.secondary"
+              sx={{ fontSize: 12}} color="text.secondary"
               dangerouslySetInnerHTML={{ __html: productDetail?.productInformation?.strategy || "" }}
             >
             </Typography>
@@ -149,7 +149,9 @@ export default function ProductDetail() {
             <Typography variant='h6' color="text.primary">
               VAULT PERFORMANCE
             </Typography>
-            <VaultPerformance />
+            <VaultPerformance
+              productDetail={productDetail}
+            />
 
 
             <div style={{ marginTop: 50 }}>
@@ -157,7 +159,7 @@ export default function ProductDetail() {
                 WITHDRAWALS
               </Typography>
               <Typography
-                sx={{ fontSize: 10 }} color="text.secondary"
+                sx={{ fontSize: 12 }} color="text.secondary"
                 dangerouslySetInnerHTML={{ __html: productDetail?.productInformation?.withdrawals || "" }}
               >
               </Typography>
@@ -169,7 +171,7 @@ export default function ProductDetail() {
                 FEE STRUCTURE
               </Typography>
               <Typography
-                sx={{ fontSize: 10 }} color="text.secondary"
+                sx={{ fontSize: 12}} color="text.secondary"
                 dangerouslySetInnerHTML={{ __html: productDetail?.productInformation?.fee_structure || "" }}
               >
               </Typography>
@@ -181,7 +183,7 @@ export default function ProductDetail() {
                 RISK
               </Typography>
               <Typography
-                sx={{ fontSize: 10 }} color="text.secondary"
+                sx={{ fontSize: 12}} color="text.secondary"
                 dangerouslySetInnerHTML={{ __html: productDetail?.productInformation?.risk || "" }}
               >
               </Typography>
