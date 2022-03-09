@@ -32,9 +32,9 @@
             "strategy": [
                 "COVERED CALL"
             ],
-            "contract_address": "2YNj4egax5WV1zSgq9hwJFNzHSYZo2rU7S8BZuMdQMKW",
-            "apy": 0.6899,
-            "prev_apy": 0.017
+            "contract_address": "0x6BF686d99A4cE17798C45d09C21181fAc29A9fb3",
+            "apy": 0.1017,
+            "prev_apy": 0.0068
         },
         {
             "icon": "https://cryptologos.cc/logos/usd-coin-usdc-logo.png",
@@ -50,19 +50,39 @@
             "strategy": [
                 "PUT-SELLING"
             ],
-            "contract_address": "2YNj4egax5WV1zSgq9hwJFNzHSYZo2rU7S8BZuMdQMKW",
-            "apy": 0.6899,
-            "prev_apy": 0.017
+            "contract_address": "0x9DD6be071b4292cc88B8190aB718329adEA3E3a3",
+            "apy": 0.1908,
+            "prev_apy": 0.0042
         }
     ],
     "productInformations": [
         {
             "id": 1,
             "product_id": 1,
-            "strategy":"<p>The vault earns yield on its SOL deposits by running a weekly automated SOL <a href='#'>covered call</a> strategy. The vault reinvests the yield earned back into the strategy, effectively compounding the yields for depositors over time.</p>",
-            "withdrawals": "<p>Once user funds have been used in the vault's weekly strategy they cannot be withdrawn until the vault closes it's position the following Friday at 12pm UTC.<br><br>Funds scheduled for withdrawal are automatically credited to their accounts once the vault rolls over its position.</p>",
-            "fee_structure": "<p>The vault fee structure consists of a 2% annualised management fee and a 10% performance fee.<br><br>If the weekly strategy is profitable, the weekly performance fee is charged on the premiums earned and the weekly management fee is charged on the assets managed by the vault.<br><br>If the weekly strategy is unprofitable, performance fees are not charged.</p>",
-            "risk": "<p>The primary risk for running this covered call strategy is that the vault may incur a weekly loss in the case where the call options sold by the vault expire <span>in-the-money</span> (meaning the price of SOL is above the strike price of the call options minted by the vault).<br><br>The Flex Vault smart are pending audit and so should be considered as beta software. Users are advised to exercise caution and only risk funds they can afford to lose. </p>",
+            "strategy":"The vault earns yield on its SOL deposits by running a weekly automated SOL <a href='#'>covered call</a> strategy. The vault reinvests the yield earned back into the strategy, effectively compounding the yields for depositors over time.",
+            "withdrawals": "Once user funds have been used in the vault's weekly strategy they cannot be withdrawn until the vault closes it's position the following Friday at 12pm UTC.<br><br>Funds scheduled for withdrawal are automatically credited to their accounts once the vault rolls over its position.",
+            "fee_structure": "The vault fee structure consists of a 2% annualised management fee and a 10% performance fee.<br><br>If the weekly strategy is profitable, the weekly performance fee is charged on the premiums earned and the weekly management fee is charged on the assets managed by the vault.<br><br>If the weekly strategy is unprofitable, performance fees are not charged.",
+            "risk": "The primary risk for running this covered call strategy is that the vault may incur a weekly loss in the case where the call options sold by the vault expire <span>in-the-money</span> (meaning the price of SOL is above the strike price of the call options minted by the vault).<br><br>The Flex Vault smart are pending audit and so should be considered as beta software. Users are advised to exercise caution and only risk funds they can afford to lose.",
+            "createdAt": 1646186473,
+            "updatedAt": 1646186473
+        },
+        {
+            "id": 2,
+            "product_id": 2,
+            "strategy":"The vault earns yield on its sAVAX deposits by running a weekly automated sAVAX <a>covered call</a> strategy where it stakes its sAVAX deposits in <a>Benqi</a> and then uses its <a>sAVAX</a> to collateralize weekly out-of-money sAVAX call options. The yield earned from both the covered call strategy and the sAVAX staking rewards are reinvested weekly, effectively compounding the yields for depositors over time",
+            "withdrawals":"Once user funds have been used in the vault’s weekly strategy they cannot be withdrawn until the vault closes it’s position the following Friday at 12pm UTC.<br><br>Users can withdraw their funds instantly during the weekly timelock period where the vault closes it’s previous position and opens its new position.",
+            "fee_structure":"The vault fee structure consists of a 2% annualised management fee and a 10% performance fee.<br><br>If the weekly strategy is profitable, the weekly performance fee is charged on the premiums earned and the weekly management fee is charged on the assets managed by the vault.<br><br>If the weekly strategy is unprofitable, there are no fees charged.",
+            "risk": "The primary risk for running this covered call strategy is that the vault may incur a weekly loss in the case where the call options sold by the vault expire <a>in-the-money</a> (meaning the price of sAVAX is above the strike price of the call options minted by the vault).<br><br>The Theta Vault smart contracts have been <a href=\"https://blog.openzeppelin.com/ribbon-finance-audit/\" target=\"\blank\" rel=\"noreferrer noopener\">audited by OpenZeppelin</a> and <a href=\"https://github.com/ribbon-finance/audit/blob/master/reports/RibbonThetaVault%20V2%20Smart%20Contract%20Review%20And%20Verification.pdf\" target=\"_blank\" rel=\"noreferrer noopener\">ChainSafe</a>. Despite that, users are advised to exercise caution and only risk funds they can afford to lose.",
+            "createdAt": 1646186473,
+            "updatedAt": 1646186473
+        },
+        {
+            "id": 3,
+            "product_id": 3,
+            "strategy": "T-USDC-P-AVAX earns yield on its USDC.e deposits by running a weekly automated AVAX <a>put-selling</a> strategy, where the put options are collateralized by USDC.e. The vault reinvests the yield it earns back into the strategy, effectively compounding the yields for depositors over time.",
+            "withdrawals": "Once user funds have been used in the vault’s weekly strategy they cannot be withdrawn until the vault closes it’s position the following Friday at 12pm UTC.<br><br>Users can withdraw their funds instantly during the weekly timelock period where the vault closes it’s previous position and opens its new position.",
+            "fee_structure": "The vault fee structure consists of a 2% annualised management fee and a 10% performance fee.<br><br>If the weekly strategy is profitable, the weekly performance fee is charged on the premiums earned and the weekly management fee is charged on the assets managed by the vault.<br><br>If the weekly strategy is unprofitable, there are no fees charged.",
+            "risk": "The primary risk for running this put selling strategy is that the vault may incur a weekly loss in the case where the put options sold by the vault expire <a>in-the-money</a> (meaning the price of AVAX is below the strike price of the put options minted by the vault). Such a situation is expected to happen less than 5% of the time.<br><br>The Theta Vault smart contracts have been <a href=\"https://blog.openzeppelin.com/ribbon-finance-audit\" target=\"_blank\" rel=\"noreferrer noopener\">audited by OpenZeppelin</a> and <a href=\"https://github.com/ribbon-finance/audit/blob/master/reports/RibbonThetaVault%20V2%20Smart%20Contract%20Review%20And%20Verification.pdf\" target=\"_blank\" rel=\"noreferrer noopener\" >ChainSafe</a>. Despite that, users are advised to exercise caution and only risk funds they can afford to lose.",
             "createdAt": 1646186473,
             "updatedAt": 1646186473
         }
@@ -115,6 +135,72 @@
             "quantity": 17810.6093,
             "createdAt": 1646186473,
             "updatedAt": 1646186473
+        },
+        {
+            "id": 3,
+            "product_id": 3,
+            "action": "SOLD",
+            "contract": "O-USDC.e 3/04 WAVAX PUT",
+            "strike_price": 60,
+            "quantity": 166.617,
+            "yield":41.65,
+            "yield_dollar": 41.76,
+            "createdAt": 1646186473,
+            "updatedAt": 1646186473
+        },
+        {
+            "id": 4,
+            "product_id": 3,
+            "action": "MINTED",
+            "contract": "O-USDC.e 3/04 WAVAX PUT",
+            "strike_price": 60,
+            "quantity": 9997,
+            "createdAt": 1646186473,
+            "updatedAt": 1646186473
+        },
+        {
+            "id": 5,
+            "product_id": 2,
+            "action": "SOLD",
+            "contract": "O-SAVAX 3/11 CALL",
+            "strike_price": 100,
+            "quantity":9999.88,
+            "yield":24.999699,
+            "yield_dollar": 2071.51,
+            "createdAt": 1646186473,
+            "updatedAt": 1646186473
+        },
+        {
+            "id": 6,
+            "product_id": 2,
+            "action": "MINTED",
+            "contract": "O-SAVAX 3/11 CALL",
+            "strike_price":100,
+            "quantity": 9999.876809,
+            "createdAt": 1646186473,
+            "updatedAt": 1646186473
+        },
+        {
+            "id": 7,
+            "product_id": 2,
+            "action": "SOLD",
+            "contract": "O-SAVAX 3/11 CALL",
+            "strike_price": 110,
+            "quantity":99.836,
+            "yield":0.798689,
+            "yield_dollar": 58.80,
+            "createdAt": 1646186473,
+            "updatedAt": 1646186473
+        },
+        {
+            "id": 8,
+            "product_id": 2,
+            "action": "MINTED",
+            "contract": "O-SAVAX 3/11 CALL",
+            "strike_price":110,
+            "quantity": 99.836137,
+            "createdAt": 1646186473,
+            "updatedAt": 1646186473
         }
     ],
     "strategy_snapshots": [
@@ -126,6 +212,28 @@
             "strike_price_dollar": 115.00,
             "performance": 0.0016,
             "time_to_expiry": 462740000,
+            "createdAt": 1646186473,
+            "updatedAt": 1646186473
+        },
+        {
+            "id": 2,
+            "product_id": 2,
+            "range": "week",
+            "current_price_dollar": 72.99,
+            "strike_price_dollar": 100.00,
+            "performance": 0.0022,
+            "time_to_expiry": 202740000,
+            "createdAt": 1646186473,
+            "updatedAt": 1646186473
+        },
+        {
+            "id": 3,
+            "product_id": 3,
+            "range": "week",
+            "current_price_dollar": 75.00,
+            "strike_price_dollar": 60.00,
+            "performance": 0.0037,
+            "time_to_expiry": 0,
             "createdAt": 1646186473,
             "updatedAt": 1646186473
         }

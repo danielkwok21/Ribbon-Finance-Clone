@@ -15,8 +15,12 @@ router.get('/', (req, res) => {
         const products = db.products.map(p => {
             const deposit = db.deposits.find(d => d.product_id === p.id)
 
-            const apy_string = p.apy > 0 ? `+${p.apy * 100}%` : `-${p.apy * 100}%`
-            const prev_apy_string = p.prev_apy > 0 ? `+${p.apy * 100}%` : `-${p.prev_apy * 100}%`
+            let apy_string = `${(p.apy * 100).toFixed(2)}%`
+            apy_string = p.apy > 0 ?  `+${apy_string}`:`-${apy_string}`
+
+            let prev_apy_string = `${(p.prev_apy * 100).toFixed(2)}%`
+            prev_apy_string = p.prev_apy > 0 ?  `+${prev_apy_string}`:`-${prev_apy_string}`
+
             const contract_address_string = `${p.contract_address.substring(0, 4)}...${p.contract_address.substring(p.contract_address.length - 4, p.contract_address.length)}`
 
             const product: Product = {
@@ -41,7 +45,7 @@ router.get('/', (req, res) => {
                 contract_address_string,
             }
 
-       
+
             return product
         })
 
@@ -70,11 +74,15 @@ router.get('/:name', (req, res) => {
         if (!p) {
             throw new Error(`Unable to find product of name ${name}`)
         }
-        
+
         const deposit = db.deposits.find(d => d.product_id === p.id)
 
-        const apy_string = p.apy > 0 ? `+${p.apy * 100}%` : `-${p.apy * 100}%`
-        const prev_apy_string = p.prev_apy > 0 ? `+${p.apy * 100}%` : `-${p.prev_apy * 100}%`
+        let apy_string = `${(p.apy * 100).toFixed(2)}%`
+        apy_string = p.apy > 0 ?  `+${apy_string}`:`-${apy_string}`
+
+        let prev_apy_string = `${(p.prev_apy * 100).toFixed(2)}%`
+        prev_apy_string = p.prev_apy > 0 ?  `+${prev_apy_string}`:`-${prev_apy_string}`
+
         const contract_address_string = `${p.contract_address.substring(0, 4)}...${p.contract_address.substring(p.contract_address.length - 4, p.contract_address.length)}`
 
         const product: Product = {
@@ -227,7 +235,7 @@ router.get('/strategysnapshot/:name', (req, res) => {
             throw new Error(`Unable to find strategy snapshot for product of name ${name}`)
         }
 
-        const time_to_expiry_string = formatDuration(s.time_to_expiry)
+        const time_to_expiry_string = formationDurationToDHM(s.time_to_expiry)
         const performance_string = `${s.performance * 100}%`
         const current_price_dollar_string = new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -262,25 +270,29 @@ router.get('/strategysnapshot/:name', (req, res) => {
     }
 })
 
-function formatDuration(durationInMs: number): string {
+function formationDurationToDHM(ms: number): string {
     const MS_IN_MIN = 1000 * 60
     const MS_IN_HOUR = MS_IN_MIN * 60
     const MS_IN_DAY = MS_IN_HOUR * 24
 
+    if (ms > 0) {
 
-    let remainingDuration: number
+        let remainingDuration: number
 
-    const days = (durationInMs / MS_IN_DAY).toFixed(0)
-    remainingDuration = durationInMs % MS_IN_DAY
+        const days = (ms / MS_IN_DAY).toFixed(0)
+        remainingDuration = ms % MS_IN_DAY
 
-    const hours = (remainingDuration / MS_IN_HOUR).toFixed(0)
-    remainingDuration = remainingDuration % MS_IN_HOUR
+        const hours = (remainingDuration / MS_IN_HOUR).toFixed(0)
+        remainingDuration = remainingDuration % MS_IN_HOUR
 
-    const minutes = (remainingDuration / MS_IN_MIN).toFixed(0)
+        const minutes = (remainingDuration / MS_IN_MIN).toFixed(0)
 
-    const string = `${days}D ${hours}H ${minutes}M`
+        const string = `${days}D ${hours}H ${minutes}M`
 
-    return string
+        return string
+    } else {
+        return `EXPIRED`
+    }
 }
 
 export default router
