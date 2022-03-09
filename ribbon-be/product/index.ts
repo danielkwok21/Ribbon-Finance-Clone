@@ -3,16 +3,22 @@ import fs from 'fs'
 import { stringify } from 'querystring';
 import db from '../database/database.json'
 import {
+    GetProductActivitiesDTO, GetProductDetailDTO, GetProductsDTO, GetStrategySnapshotDTO,
     Deposit,
-    Product, ProductActivity, ProductInformation
+    Product, ProductActivity, ProductActivityAction, ProductInformation, StrategySnapshot
 } from '../types'
-import { GetProductActivitiesDTO, GetProductActivity, GetProductDetailDTO, GetProductsDTO } from './dto';
 const router = express.Router();
 
 router.get('/', (req, res) => {
     try {
 
         const products = db.products.map(p => {
+            const deposit = db.deposits.find(d => d.product_id === p.id)
+
+            const apy_string = p.apy > 0 ? `+${p.apy * 100}%` : `-${p.apy * 100}%`
+            const prev_apy_string = p.prev_apy > 0 ? `+${p.apy * 100}%` : `-${p.prev_apy * 100}%`
+            const contract_address_string = `${p.contract_address.substring(0, 4)}...${p.contract_address.substring(p.contract_address.length - 4, p.contract_address.length)}`
+
             const product: Product = {
                 icon: p.icon,
                 name: p.name,
@@ -25,15 +31,18 @@ router.get('/', (req, res) => {
                 updatedAt: p.updatedAt,
                 strategy: p.strategy,
                 background: p.background,
-            }
-
-            const deposit = db.deposits.find(d => d.product_id === product.id)
-
-            return {
-                ...product,
+                contract_address: p.contract_address,
+                apy: p.apy,
+                prev_apy: p.prev_apy,
                 current_deposit: deposit?.current_deposit || 0,
                 max_deposit: deposit?.max_deposit || 0,
+                apy_string,
+                prev_apy_string,
+                contract_address_string,
             }
+
+       
+            return product
         })
 
         const response: GetProductsDTO = {
@@ -56,12 +65,17 @@ router.get('/:name', (req, res) => {
     const name = req.params.name
 
     try {
-        const { products, productInformations, deposits } = db
-        const p = products.find(p => p.name === name)
+        const p = db.products.find(p => p.name === name)
 
         if (!p) {
             throw new Error(`Unable to find product of name ${name}`)
         }
+        
+        const deposit = db.deposits.find(d => d.product_id === p.id)
+
+        const apy_string = p.apy > 0 ? `+${p.apy * 100}%` : `-${p.apy * 100}%`
+        const prev_apy_string = p.prev_apy > 0 ? `+${p.apy * 100}%` : `-${p.prev_apy * 100}%`
+        const contract_address_string = `${p.contract_address.substring(0, 4)}...${p.contract_address.substring(p.contract_address.length - 4, p.contract_address.length)}`
 
         const product: Product = {
             icon: p.icon,
@@ -75,32 +89,28 @@ router.get('/:name', (req, res) => {
             updatedAt: p.updatedAt,
             strategy: p.strategy,
             background: p.background,
+            contract_address: p.contract_address,
+            apy: p.apy,
+            prev_apy: p.prev_apy,
+            apy_string,
+            prev_apy_string,
+            contract_address_string,
+            current_deposit: deposit?.current_deposit || 0,
+            max_deposit: deposit?.max_deposit || 0,
         }
 
-        const pi = productInformations.find(pi => pi.product_id === p.id)
+        const pi = db.productInformations.find(pi => pi.product_id === p.id)
         let productInformation: undefined | ProductInformation
         if (pi) {
             productInformation = {
                 id: pi?.id,
                 product_id: pi?.product_id,
+                strategy: pi?.strategy,
                 withdrawals: pi?.withdrawals,
                 fee_structure: pi?.fee_structure,
                 risk: pi?.risk,
                 createdAt: pi?.createdAt,
                 updatedAt: pi?.updatedAt,
-            }
-        }
-
-        const d = deposits.find(d => d.product_id === p.id)
-        let deposit: undefined | Deposit
-        if (d) {
-            deposit = {
-                id: d?.id,
-                product_id: d?.product_id,
-                current_deposit: d?.current_deposit,
-                max_deposit: d?.max_deposit,
-                createdAt: d?.createdAt,
-                updatedAt: d?.updatedAt,
             }
         }
 
@@ -137,31 +147,32 @@ router.get('/activities/:name', (req, res) => {
             .filter(pa => {
                 return pa.product_id === id
             })
-            .map((pa: ProductActivity) => {
+            .map(pa => {
+                const productActivity = <ProductActivity>pa
 
                 /**Transform data */
                 let yield_string = ``
                 let yield_dollar_string = ``
-                switch (pa.action) {
-                    case 'SOLD CONTRACTS':
+                switch (productActivity.action) {
+                    case ProductActivityAction.SOLD:
 
-                        if (pa.yield && pa.yield > 0) {
-                            yield_string = `+${pa.yield} ${p.symbol}`
-                        } else if (pa.yield && pa.yield < 0) {
-                            yield_string = `-${pa.yield} ${p.symbol}`
+                        if (productActivity.yield && productActivity.yield > 0) {
+                            yield_string = `+${productActivity.yield} ${p.symbol}`
+                        } else if (productActivity.yield && productActivity.yield < 0) {
+                            yield_string = `-${productActivity.yield} ${p.symbol}`
                         } else {
-                            yield_string = `-${pa.yield} ${p.symbol}`
+                            yield_string = `-${productActivity.yield} ${p.symbol}`
                         }
 
-                        if (pa.yield && pa.yield > 0) {
-                            yield_dollar_string = `+${pa.yield_dollar}`
-                        } else if (pa.yield && pa.yield < 0) {
-                            yield_dollar_string = `-${pa.yield_dollar}`
+                        if (productActivity.yield && productActivity.yield > 0) {
+                            yield_dollar_string = `+${productActivity.yield_dollar}`
+                        } else if (productActivity.yield && productActivity.yield < 0) {
+                            yield_dollar_string = `-${productActivity.yield_dollar}`
                         } else {
-                            yield_dollar_string = `-${pa.yield_dollar}`
+                            yield_dollar_string = `-${productActivity.yield_dollar}`
                         }
                         break
-                    case 'MINTED CONTRACTS':
+                    case ProductActivityAction.MINTED:
                         yield_string = '-'
                         yield_dollar_string = '-'
                         break
@@ -170,13 +181,13 @@ router.get('/activities/:name', (req, res) => {
                 }
 
 
-                const productActivity: GetProductActivity = {
-                    ...pa,
+                const response: ProductActivity = {
+                    ...productActivity,
                     yield_dollar_string,
                     yield_string,
                 }
 
-                return productActivity
+                return response
             })
 
         const response: GetProductActivitiesDTO = {
@@ -194,5 +205,82 @@ router.get('/activities/:name', (req, res) => {
         res.json(response)
     }
 });
+
+
+router.get('/strategysnapshot/:name', (req, res) => {
+    const name: string = req.params.name
+
+    try {
+        const p = db.products.find(p => p.name === name)
+
+        if (!p) {
+            throw new Error(`Unable to find product of name ${name}`)
+        }
+        const id = p.id
+
+        const s = db.strategy_snapshots
+            .find((s: any) => {
+                return s.product_id === id
+            })
+
+        if (!s) {
+            throw new Error(`Unable to find strategy snapshot for product of name ${name}`)
+        }
+
+        const time_to_expiry_string = formatDuration(s.time_to_expiry)
+        const performance_string = `${s.performance * 100}%`
+        const current_price_dollar_string = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        }).format(s.current_price_dollar)
+        const strike_price_dollar_string = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        }).format(s.strike_price_dollar)
+
+        const ssdto: StrategySnapshot = {
+            ...s,
+            time_to_expiry_string,
+            performance_string,
+            current_price_dollar_string,
+            strike_price_dollar_string,
+        }
+
+        const response: GetStrategySnapshotDTO = {
+            status: true,
+            strategySnapshot: ssdto
+        }
+
+        res.json(response)
+
+    } catch (err) {
+        const response: GetStrategySnapshotDTO = {
+            status: false,
+            message: (err as Error).message,
+        }
+        res.json(response)
+    }
+})
+
+function formatDuration(durationInMs: number): string {
+    const MS_IN_MIN = 1000 * 60
+    const MS_IN_HOUR = MS_IN_MIN * 60
+    const MS_IN_DAY = MS_IN_HOUR * 24
+
+
+    let remainingDuration: number
+
+    const days = (durationInMs / MS_IN_DAY).toFixed(0)
+    remainingDuration = durationInMs % MS_IN_DAY
+
+    const hours = (remainingDuration / MS_IN_HOUR).toFixed(0)
+    remainingDuration = remainingDuration % MS_IN_HOUR
+
+    const minutes = (remainingDuration / MS_IN_MIN).toFixed(0)
+
+    const string = `${days}D ${hours}H ${minutes}M`
+
+    return string
+}
 
 export default router

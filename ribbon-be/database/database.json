@@ -13,7 +13,10 @@
             "updatedAt": 1646186473,
             "strategy": [
                 "COVERED CALL"
-            ]
+            ],
+            "contract_address": "2YNj4egax5WV1zSgq9hwJFNzHSYZo2rU7S8BZuMdQMKW",
+            "apy": 0.6899,
+            "prev_apy": 0.017
         },
         {
             "icon": "https://assets.coingecko.com/coins/images/23657/large/savax_blue.png?1644989825",
@@ -28,7 +31,10 @@
             "updatedAt": 1646186473,
             "strategy": [
                 "COVERED CALL"
-            ]
+            ],
+            "contract_address": "2YNj4egax5WV1zSgq9hwJFNzHSYZo2rU7S8BZuMdQMKW",
+            "apy": 0.6899,
+            "prev_apy": 0.017
         },
         {
             "icon": "https://cryptologos.cc/logos/usd-coin-usdc-logo.png",
@@ -43,16 +49,20 @@
             "updatedAt": 1646186473,
             "strategy": [
                 "PUT-SELLING"
-            ]
+            ],
+            "contract_address": "2YNj4egax5WV1zSgq9hwJFNzHSYZo2rU7S8BZuMdQMKW",
+            "apy": 0.6899,
+            "prev_apy": 0.017
         }
     ],
     "productInformations": [
         {
             "id": 1,
             "product_id": 1,
+            "strategy":"<p>The vault earns yield on its SOL deposits by running a weekly automated SOL <a href='#'>covered call</a> strategy. The vault reinvests the yield earned back into the strategy, effectively compounding the yields for depositors over time.</p>",
             "withdrawals": "<p>Once user funds have been used in the vault's weekly strategy they cannot be withdrawn until the vault closes it's position the following Friday at 12pm UTC.<br><br>Funds scheduled for withdrawal are automatically credited to their accounts once the vault rolls over its position.</p>",
             "fee_structure": "<p>The vault fee structure consists of a 2% annualised management fee and a 10% performance fee.<br><br>If the weekly strategy is profitable, the weekly performance fee is charged on the premiums earned and the weekly management fee is charged on the assets managed by the vault.<br><br>If the weekly strategy is unprofitable, performance fees are not charged.</p>",
-            "risk": "<p>The primary risk for running this covered call strategy is that the vault may incur a weekly loss in the case where the call options sold by the vault expire <span>in-the-money</span> (meaning the price of SOL is above the strike price of the call options minted by the vault).<br><br>The Flex Vault smart contracts are pending audit and so should be considered as beta software. Users are advised to exercise caution and only risk funds they can afford to lose. </p>",
+            "risk": "<p>The primary risk for running this covered call strategy is that the vault may incur a weekly loss in the case where the call options sold by the vault expire <span>in-the-money</span> (meaning the price of SOL is above the strike price of the call options minted by the vault).<br><br>The Flex Vault smart are pending audit and so should be considered as beta software. Users are advised to exercise caution and only risk funds they can afford to lose. </p>",
             "createdAt": 1646186473,
             "updatedAt": 1646186473
         }
@@ -87,7 +97,7 @@
         {
             "id": 1,
             "product_id": 1,
-            "action": "SOLD CONTRACTS",
+            "action": "SOLD",
             "contract": "0-SOL- 3/04 CALL",
             "strike_price": 105,
             "quantity": 17810.609,
@@ -99,10 +109,23 @@
         {
             "id": 2,
             "product_id": 1,
-            "action": "MINTED CONTRACTS",
+            "action": "MINTED",
             "contract": "0-SOL- 3/04 CALL",
             "strike_price": 105,
             "quantity": 17810.6093,
+            "createdAt": 1646186473,
+            "updatedAt": 1646186473
+        }
+    ],
+    "strategy_snapshots": [
+        {
+            "id": 1,
+            "product_id": 1,
+            "range": "week",
+            "current_price_dollar": 89.32,
+            "strike_price_dollar": 115.00,
+            "performance": 0.0016,
+            "time_to_expiry": 462740000,
             "createdAt": 1646186473,
             "updatedAt": 1646186473
         }
