@@ -13,7 +13,6 @@ import {
   Link
 } from "react-router-dom";
 import Portfolio from './pages/PortfolioPage';
-import WalletActionPage from './pages/WalletActionPage'
 
 function App() {
 

@@ -54,6 +54,8 @@ export default function ProductDetail() {
   const formattedCurrentDeposit = formatNumber(productDetail?.deposit?.current_deposit || 0)
   const formattedMaxDeposit = formatNumber(productDetail?.deposit?.max_deposit || 0)
 
+  const isMobile = getIsMobile()
+
   return (
     <div
       style={{ width: '100%', flexDirection: 'column' }}>
@@ -114,6 +116,23 @@ export default function ProductDetail() {
       <div
         className='product-container'
       >
+
+        {
+          isMobile ? (
+            <Button
+              style={{
+                borderRadius: 20,
+                backgroundColor: '#122125',
+                color: '#14F195',
+                margin: 20
+              }}
+              href='#'
+              variant="contained">
+              CONTRACT 2YNJ4E...QMKW <OpenInNewIcon sx={{ fontSize: 20, marginLeft: 1 }} />
+            </Button>
+          ) : null
+        }
+
         <div
           style={{
             display: 'flex',
