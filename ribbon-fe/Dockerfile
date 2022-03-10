@@ -5,7 +5,7 @@ RUN mkdir -p /usr/src/app/ribbon-fe
 
 WORKDIR /usr/src/app/ribbon-fe
 
-COPY package*.json ./
+COPY package.json ./
 
 RUN npm install
 
