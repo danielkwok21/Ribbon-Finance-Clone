@@ -1,0 +1,37 @@
+name: Deployment Workflow
+on:
+  push:
+    branches: [master]
+
+jobs:
+  job_one:
+    name: Pull from repo
+    runs-on: ubuntu-18.04
+    steps:
+    - name: testing 172.104.165.240 server ssh connection
+      uses: appleboy/ssh-action@master
+      with:
+        host: 172.104.165.240
+        username: daniel
+        key: ${{secrets.PRIVATE_GITHUB_KEY}}
+        port: 22
+        script: |
+          cd ~/Ribbon-Finance-Clone
+          git remote -v
+          git pull origin master
+          git status
+          echo "Deployed"
+  job_two:
+    name: Build and deploy frontend
+    runs-on: ubuntu-18.04
+    steps:
+    - name: testing 172.104.165.240 server ssh connection
+      uses: appleboy/ssh-action@master
+      with:
+        host: 172.104.165.240
+        username: daniel
+        key: ${{secrets.PRIVATE_GITHUB_KEY}}
+        port: 22
+        script: |
+          cd ~/Ribbon-Finance-Clone/ribbon-fe
+          yarn build
