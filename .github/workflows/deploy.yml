@@ -16,11 +16,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Change directory
-        run: cd ./ribbon-fe && pwd
-
       - name: Install dependencies
+        working-directory: ./ribbon-fe
         run: yarn install
 
       - name: Build
+        working-directory: ./ribbon-fe
         run: yarn build
