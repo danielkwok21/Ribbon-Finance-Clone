@@ -26,7 +26,7 @@ jobs:
         env:
           CI: false
 
-      - name: Misc
+      - name: Deploy
         working-directory: ./ribbon-fe
-        run: ls
+        run: scp -r /build/ daniel@172.104.165.240:~
 
