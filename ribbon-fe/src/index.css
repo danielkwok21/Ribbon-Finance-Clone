@@ -28,7 +28,8 @@ body {
   display: flex;
   justify-content: space-around;
   row-gap: 20px;
-  width: 100%;
+  width: 50%;
+  min-width: 1000px;
   flex-wrap: wrap;
 }
 
@@ -38,6 +39,7 @@ body {
   flex-direction: row;
   gap: 20px;
   width: 50%;
+  max-width: 700px;
   margin-bottom: 50px;
 }
 
@@ -185,6 +187,10 @@ a {
   .selector-container {
     width: 100%;
     flex-direction: column;
+  }
+
+  .card-container {
+    min-width: fit-content;
   }
 
   #product-header-right {
