@@ -6,7 +6,7 @@ import {
 } from '../types'
 
 const isLocal = ['127.0.0.1', 'localhost'].includes(window.location.hostname)
-const root = isLocal ? `http://localhost:5000` : `http://ribbonclone.danielkwok.com/ribbon-be-api`
+const root = isLocal ? `http://localhost:5000` : `https://ribbonclone.danielkwok.com/ribbon-be-api`
 const coingeckoRoot = `https://api.coingecko.com/api/v3`
 
 export const getProducts = (): Promise<GetProductsDTO> => {
