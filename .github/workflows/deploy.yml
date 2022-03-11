@@ -25,3 +25,8 @@ jobs:
         run: yarn build
         env:
           CI: false
+
+      - name: Misc
+        working-directory: ./ribbon-fe
+        run: ls
+
