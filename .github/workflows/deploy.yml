@@ -23,3 +23,5 @@ jobs:
       - name: Build
         working-directory: ./ribbon-fe
         run: yarn build
+        env:
+          CI: false
